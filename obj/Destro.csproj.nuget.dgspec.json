@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj": {}
+    "C:\\Users\\henri\\github\\destro\\Destro.csproj": {}
   },
   "projects": {
-    "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj": {
+    "C:\\Users\\henri\\github\\destro\\Destro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj",
+        "projectUniqueName": "C:\\Users\\henri\\github\\destro\\Destro.csproj",
         "projectName": "Destro",
-        "projectPath": "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj",
-        "packagesPath": "C:\\Users\\arthu\\.nuget\\packages\\",
-        "outputPath": "D:\\Destro\\destro\\Destro\\Destro\\obj\\",
+        "projectPath": "C:\\Users\\henri\\github\\destro\\Destro.csproj",
+        "packagesPath": "C:\\Users\\henri\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\henri\\github\\destro\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\arthu\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\henri\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.300\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.201\\RuntimeIdentifierGraph.json"
         }
       }
     }

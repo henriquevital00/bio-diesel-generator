@@ -17,7 +17,7 @@ namespace Destro.Controllers
         }
 
         [HttpPost("setCapcity")]
-        public object SetCapacityApi(OilTank oil, double quantity)
+        public object SetCapacity(OilTank oil, double quantity)
         {
             var oilService = new OilTankService();
             return oilService.SetCapacityServ(oil, quantity);

@@ -9,9 +9,9 @@ namespace BioDieselProject.Entity
 {
     public class Reactor : IMachines
     {
-        private double naOh = 0;
-        private double etOh = 0;
-        private double oil = 0;
+        public double naOh = 0;
+        public double etOh = 0;
+        public double oil = 0;
 
         public Reactor()
         {

@@ -1,3 +1,6 @@
+using Orchestrators;
+using System;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -22,4 +25,12 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+//app.Run();
+
+Thread t = new Thread(app.Run);
+
+t.Start();
+
+// Chama orquestrador
+Orchestrator orchestrator = new Orchestrator();
+orchestrator.Start();

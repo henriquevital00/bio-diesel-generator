@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Interfaces
 {
-    public abstract class IMachines
+    internal abstract class IMachines
     {
         public double Capacity{ get; set; }
 
@@ -24,7 +24,7 @@ namespace BioDieselProject.Interfaces
             return new { Capacity };
         }
 
-        public virtual double trasfer()
+        public virtual object trasfer()
         {
             double transfer = 0;
             if (Capacity > 0)
@@ -40,7 +40,7 @@ namespace BioDieselProject.Interfaces
                     Capacity -= transfer;
                 }
             }
-            return transfer;
+            return new { transfer };
         }
         
     }

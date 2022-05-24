@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 
 namespace BioDieselProject.Interfaces
@@ -16,10 +17,31 @@ namespace BioDieselProject.Interfaces
 
         public double Waste { get; set; }
 
+        public virtual object setCapacity(double quantity)
+        {
+            Capacity += quantity;
 
-        public abstract double setCapacity(double quantity);
+            return new { Capacity };
+        }
 
-        public abstract double trasfer();
+        public virtual double trasfer()
+        {
+            double transfer = 0;
+            if (Capacity > 0)
+            {
+                if (Capacity <= Flow)
+                {
+                    transfer = Capacity;
+                    Capacity -= transfer;
+                }
+                else
+                {
+                    transfer = Flow;
+                    Capacity -= transfer;
+                }
+            }
+            return transfer;
+        }
         
     }
 }

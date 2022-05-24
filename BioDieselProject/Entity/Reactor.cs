@@ -17,62 +17,34 @@ namespace BioDieselProject.Entity
         {
             Capacity = 0;
             Flow = 5;
-            Volume = 5;
         }
 
         // metodo adiciona a quantidade que for possivel da substancia, se possivel adicionar tudo ele retorna o valor do que sobrou
         //da substancia
-        public Tuple<double, double, double> setCapacityNaoh(double quantity)
+        public object setCapacityNaoh(double quantity)
         {
-            double remeaning = Volume - Capacity;
-            if (quantity <= remeaning)
+            Capacity += quantity;
+            naOh += quantity;
+            return new
             {
-                Capacity += quantity;
-                naOh += quantity;
-                quantity = 0;
-            }
-            else
-            {
-                Capacity += remeaning;
-                quantity -= remeaning;
-                naOh += remeaning;
-            }
-            return Tuple.Create(Capacity, naOh, quantity);
+                Capacity,
+                etOh,
+                naOh,
+                oil
+            };
         }
 
         public Tuple<double, double, double> setCapacityEtoh(double quantity)
         {
-            double remeaning = Volume - Capacity;
-            if (quantity <= remeaning)
-            {
-                Capacity += quantity;
-                etOh += quantity;
-                quantity = 0;
-            }
-            else
-            {
-                Capacity += remeaning;
-                quantity -= remeaning;
-                etOh += remeaning;
-            }
+            Capacity += quantity;
+            etOh += quantity;
             return Tuple.Create(Capacity, etOh, quantity);
         }
 
         public Tuple<double, double, double> setCapacityOil(double quantity)
         {
-            double remeaning = Volume - Capacity;
-            if (quantity <= remeaning)
-            {
-                Capacity += quantity;
-                oil += quantity;
-                quantity = 0;
-            }
-            else
-            {
-                Capacity += remeaning;
-                quantity -= remeaning;
-                oil += remeaning;
-            }
+            Capacity += quantity;
+            oil += quantity;
             return Tuple.Create(Capacity, oil, quantity);
         }
 
@@ -80,11 +52,19 @@ namespace BioDieselProject.Entity
         public override double trasfer()
         {
             double transfer = 0;
-            if (Capacity >= Flow)
+            if (Capacity > 0)
             {
-                if()
-                transfer = Flow;
-                Capacity -= transfer;
+                if (Capacity <= Flow)
+                {
+                    //if()
+                    transfer = Capacity;
+                    Capacity -= transfer;
+                }
+                else
+                {
+                    transfer = Flow;
+                    Capacity -= transfer;
+                }
             }
             return transfer;
         }

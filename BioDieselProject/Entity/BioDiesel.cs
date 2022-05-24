@@ -13,16 +13,5 @@ namespace BioDieselProject.Entity
         {
             Capacity = 0;
         }
-
-        public override double setCapacity(double quantity)
-        {
-            Capacity += quantity;
-            return Capacity;
-        }
-
-        public override double trasfer()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

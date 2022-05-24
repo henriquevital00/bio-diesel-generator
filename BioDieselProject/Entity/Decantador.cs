@@ -17,7 +17,7 @@ namespace BioDieselProject.Entity
             Volume = 10;
         }
 
-        public Tuple<double, double> setCapacity(double quantity)
+        public override object setCapacity(double quantity)
         {
             double remeaning = Volume - Capacity;
             if (quantity <= remeaning)
@@ -30,13 +30,9 @@ namespace BioDieselProject.Entity
                 Capacity += remeaning;
                 quantity -= remeaning;
             }
-            return Tuple.Create(Capacity, quantity);
+            return new { Capacity, quantity };
         }
 
-        public override double setCapacity(double quantity)
-        {
-            throw new NotImplementedException();
-        }
 
         // Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
         public override double trasfer()

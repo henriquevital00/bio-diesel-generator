@@ -18,11 +18,6 @@ namespace BioDieselProject.Entity
             Waste = 0.075;
         }
 
-        public override double setCapacity(double quantity)
-        {
-            Capacity += quantity;
-            return Capacity;
-        }
 
         // chamar a cada 3 segundos, pois existem 3 tanques com vazao de 1.5 l/s
         public override double trasfer()

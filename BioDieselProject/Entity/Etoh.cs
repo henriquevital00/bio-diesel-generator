@@ -17,17 +17,13 @@ namespace BioDieselProject.Entity
             Flow = 0.25;
         }
 
-        public Tuple<double, double> setCapacity(double substance1)
+        public override object setCapacity(double substance1)
         {
-            etOh = substance1;
-            Capacity = substance1;
-            return Tuple.Create(Capacity, etOh);
+            etOh += substance1;
+            Capacity += substance1;
+            return new {Capacity, etOh};
         }
-
-        public override double setCapacity(double quantity)
-        {
-            throw new NotImplementedException();
-        }
+        
 
         public override double trasfer()
         {
@@ -39,6 +35,7 @@ namespace BioDieselProject.Entity
                 Capacity -= transfer;
                 
             }
+
             return transfer;
         }
     }

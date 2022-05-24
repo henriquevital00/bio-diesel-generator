@@ -16,21 +16,10 @@ namespace BioDieselProject.Entity
             Flow = 0.2;
         }
 
-        public override double setCapacity(double quantity)
+        public override object setCapacity(double quantity)
         {
             Capacity += quantity;
-            return Capacity;
-        }
-
-        public override double trasfer()
-        {
-            double transfer = 0;
-            if (Capacity >= Flow)
-            {
-                transfer = Flow * Waste;
-                Capacity -= Flow;
-            }
-            return transfer;
+            return new { Capacity};
         }
     }
 }

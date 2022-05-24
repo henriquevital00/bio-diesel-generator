@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BioDieselProject.Routes
+namespace BioDieselProject.Dashboard
 {
-
-    internal class OilTankAPI
+    internal class Dashboard
     {
         
-
     }
 }

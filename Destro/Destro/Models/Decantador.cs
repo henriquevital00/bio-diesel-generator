@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    public class Decantador : IMachines
+    internal class Decantador : IMachines
     {
         private bool sleeping = false;
         public Decantador()
@@ -17,44 +17,25 @@ namespace BioDieselProject.Entity
             Volume = 10;
         }
 
-        public override object setCapacity(double quantity)
+
+        // Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
+        public override object trasfer()
         {
-            double remeaning = Volume - Capacity;
-            if (quantity <= remeaning)
+            double transfer = 0;
+            sleeping = !sleeping;
+
+            if (Capacity <= Flow)
             {
-                Capacity += quantity;
-                quantity = 0;
+                transfer = Capacity;
+                Capacity -= transfer;
             }
             else
             {
-                Capacity += remeaning;
-                quantity -= remeaning;
+                transfer = Flow;
+                Capacity -= transfer;
             }
-            return new { Capacity, quantity };
-        }
-
-
-        // Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
-        public override double trasfer()
-        {
-            double transfer = 0;
-
-            if (!sleeping)
-            {
-                if (Capacity >= Flow)
-                {
-                    transfer = Flow;
-                    Capacity -= Flow;
-                }
-                else
-                {
-                    double sobra = Flow - Capacity;
-                    transfer = sobra;
-                    Capacity -= sobra;
-                }
-                sleeping = true;
-            }
-            return transfer;
+                
+            return new { transfer };
         }
     }
 }

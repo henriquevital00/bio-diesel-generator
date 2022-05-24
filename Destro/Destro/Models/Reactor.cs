@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    public class Reactor : IMachines
+    internal class Reactor : IMachines
     {
         private double naOh = 0;
         private double etOh = 0;
@@ -34,39 +34,52 @@ namespace BioDieselProject.Entity
             };
         }
 
-        public Tuple<double, double, double> setCapacityEtoh(double quantity)
+        public object setCapacityEtoh(double quantity)
         {
             Capacity += quantity;
             etOh += quantity;
-            return Tuple.Create(Capacity, etOh, quantity);
+            return new { Capacity, etOh };
         }
 
-        public Tuple<double, double, double> setCapacityOil(double quantity)
+        public object setCapacityOil(double quantity)
         {
             Capacity += quantity;
             oil += quantity;
-            return Tuple.Create(Capacity, oil, quantity);
+            return new { Capacity, oil };
         }
 
-        // Verificar, Destro escreveu o documento com o cu
-        public override double trasfer()
+        // Verificargit clone
+        public override object trasfer()
         {
             double transfer = 0;
             if (Capacity > 0)
             {
                 if (Capacity <= Flow)
                 {
-                    //if()
-                    transfer = Capacity;
-                    Capacity -= transfer;
+                    double parte = Capacity/4;
+                    if (naOh >= parte && etOh >= parte && oil >= (parte * 2))
+                    {
+                        transfer = Capacity;
+                        Capacity -= transfer;
+                        naOh -= parte;
+                        etOh -= parte;
+                        oil -= parte;
+                    }
                 }
                 else
                 {
-                    transfer = Flow;
-                    Capacity -= transfer;
+                    double parte = Flow / 4;
+                    if (naOh >= parte && etOh >= parte && oil >= (parte * 2))
+                    {
+                        transfer = Flow;
+                        Capacity -= transfer;
+                        naOh -= parte;
+                        etOh -= parte;
+                        oil -= parte;
+                    }
                 }
             }
-            return transfer;
+            return new { transfer, naOh, etOh, oil };
         }
     }
 }

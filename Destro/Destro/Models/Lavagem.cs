@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    public class Lavagem : IMachines
+    internal class Lavagem : IMachines
 
     {
         private double Waste = 0;
@@ -15,16 +15,27 @@ namespace BioDieselProject.Entity
         {
             Capacity = 0;
             Flow = 1.5;
-            Waste = 0.075;
+            Waste = 0.925;
         }
 
-
         // chamar a cada 3 segundos, pois existem 3 tanques com vazao de 1.5 l/s
-        public override double trasfer()
+        public override object trasfer()
         {
             double transfer = 0;
-            transfer = Capacity * Waste;
-            return transfer;
+            double lost = 0;
+            if (Capacity <= Flow)
+            {
+                lost = Capacity - (Capacity * Waste);
+                transfer = Capacity * Waste;
+                Capacity -= transfer;
+            }
+            else
+            {
+                lost = Capacity - (Flow * Waste);
+                transfer = Flow * Waste;
+                Capacity -= transfer;
+            }
+            return new { transfer, lost };
         }
     }
 }

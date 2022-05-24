@@ -30,5 +30,4 @@ namespace Destro.Controllers
             return decService.GetTransfer(dec);
         }
     }
-}
-﻿
+}﻿

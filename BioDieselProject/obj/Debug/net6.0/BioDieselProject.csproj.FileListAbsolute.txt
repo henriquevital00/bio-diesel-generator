@@ -1,6 +1,0 @@
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.csproj.AssemblyReference.cache
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.AssemblyInfoInputs.cache
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.AssemblyInfo.cs
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.csproj.CoreCompileInputs.cache
-C:\Users\henri\source\repos\BioDieselProject\BioDieselProject\obj\Debug\net6.0\BioDieselProject.MvcApplicationPartsAssemblyInfo.cache

@@ -2,7 +2,7 @@
 
 namespace BioDieselProject.Entity
 {
-    internal class Dryer : IMachines
+    public class Dryer : IMachines
     {
         public Dryer()
         {

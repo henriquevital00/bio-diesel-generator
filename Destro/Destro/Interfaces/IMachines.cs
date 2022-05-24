@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Interfaces
 {
-    internal abstract class IMachines
+    public abstract class IMachines
     {
         public double Capacity{ get; set; }
 

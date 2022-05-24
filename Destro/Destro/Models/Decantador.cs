@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class Decantador : IMachines
+    public class Decantador : IMachines
     {
         private bool sleeping = false;
         public Decantador()

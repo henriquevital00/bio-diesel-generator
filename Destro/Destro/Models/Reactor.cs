@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class Reactor : IMachines
+    public class Reactor : IMachines
     {
         private double naOh = 0;
         private double etOh = 0;

@@ -28,9 +28,7 @@ namespace BioDieselProject.Entity
             return new
             {
                 Capacity,
-                etOh,
-                naOh,
-                oil
+                naOh
             };
         }
 
@@ -63,7 +61,7 @@ namespace BioDieselProject.Entity
                         Capacity -= transfer;
                         naOh -= parte;
                         etOh -= parte;
-                        oil -= parte;
+                        oil -= (parte*2);
                     }
                 }
                 else
@@ -75,7 +73,7 @@ namespace BioDieselProject.Entity
                         Capacity -= transfer;
                         naOh -= parte;
                         etOh -= parte;
-                        oil -= parte;
+                        oil -= (parte*2);
                     }
                 }
             }

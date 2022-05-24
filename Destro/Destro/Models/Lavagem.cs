@@ -15,7 +15,7 @@ namespace BioDieselProject.Entity
         {
             Capacity = 0;
             Flow = 1.5;
-            Waste = 0.925;
+            Waste = 0.975;
         }
 
         // chamar a cada 3 segundos, pois existem 3 tanques com vazao de 1.5 l/s
@@ -26,13 +26,13 @@ namespace BioDieselProject.Entity
             if (Capacity <= Flow)
             {
                 lost = Capacity - (Capacity * Waste);
-                transfer = Capacity * Waste;
+                transfer = (((Capacity * Waste) * Waste) * Waste);
                 Capacity -= transfer;
             }
             else
             {
                 lost = Capacity - (Flow * Waste);
-                transfer = Flow * Waste;
+                transfer = (((Flow * Waste) * Waste) * Waste);
                 Capacity -= transfer;
             }
             return new { transfer, lost };

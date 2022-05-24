@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class Etoh : IMachines
+    public class Etoh : IMachines
     {
 
         public Etoh()

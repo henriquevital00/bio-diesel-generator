@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(OilTank oil)
+        public object GetTransfer(OilTank oil)
         {
             var oilService = new OilTankService();
             return oilService.GetTransfer(oil);

@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Decantador dec)
+        public object GetTransfer(Decantador dec)
         {
             var decService = new DecantadorService();
             return decService.GetTransfer(dec);

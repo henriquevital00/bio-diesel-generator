@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class DryerToEtOh : IMachines
+    public class DryerToEtOh : IMachines
     {
         public DryerToEtOh()
         {

@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return oil.setCapacity(quantity);
         }
-        public double GetTransfer(OilTank oil)
+        public object GetTransfer(OilTank oil)
         {
             return oil.trasfer();
         }

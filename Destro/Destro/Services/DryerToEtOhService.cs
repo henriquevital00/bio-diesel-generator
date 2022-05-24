@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return doet.setCapacity(quantity);
         }
-        public double GetTransfer(DryerToEtOh doet)
+        public object GetTransfer(DryerToEtOh doet)
         {
             return doet.trasfer();
         }

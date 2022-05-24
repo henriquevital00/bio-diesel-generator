@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "eN8Lu/jP7vj3szzdkCJi4JgLcngHXlRYpd0L+gC5dc6NjnQDzU6TW55qPr6CXF8mRG7GoX/p6+6X1KViknI/RQ==",
+  "dgSpecHash": "cSVlhHXoGYdYYjamHua7BGs9ZYDKmHtt/TLrNzV8DwwsZBmnHKQPRxlbcH1Tk51PELV3mgQIELbsMf9BlCJ6cA==",
   "success": true,
-  "projectFilePath": "D:\\C#\\Destro\\Destro\\Destro.csproj",
+  "projectFilePath": "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\arthu\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\arthu\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",

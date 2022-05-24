@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return glic.setCapacity(quantity);
         }
-        public double GetTransfer(Glicerine glic)
+        public object GetTransfer(Glicerine glic)
         {
             return glic.trasfer();
         }

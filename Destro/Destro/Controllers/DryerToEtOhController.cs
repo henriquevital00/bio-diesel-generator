@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(DryerToEtOh dry)
+        public object GetTransfer(DryerToEtOh dry)
         {
             var dryService = new DryerToEtOhService();
             return dryService.GetTransfer(dry);

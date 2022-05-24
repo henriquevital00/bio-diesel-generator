@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class Glicerine : IMachines
+    public class Glicerine : IMachines
     {
         public Glicerine()
         {

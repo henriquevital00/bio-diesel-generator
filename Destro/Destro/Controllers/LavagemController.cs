@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Lavagem lav)
+        public object GetTransfer(Lavagem lav)
         {
             var lavService = new LavagemService();
             return lavService.GetTransfer(lav);

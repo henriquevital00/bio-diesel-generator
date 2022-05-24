@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BioDieselProject.Entity
 {
-    internal class Lavagem : IMachines
+    public class Lavagem : IMachines
 
     {
         private double Waste = 0;

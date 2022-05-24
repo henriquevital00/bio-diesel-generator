@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Glicerine glic)
+        public object GetTransfer(Glicerine glic)
         {
             var glicService = new GlicerineService();
             return glicService.GetTransfer(glic);

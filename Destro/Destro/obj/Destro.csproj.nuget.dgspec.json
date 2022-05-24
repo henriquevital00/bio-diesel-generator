@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\C#\\Destro\\Destro\\Destro.csproj": {}
+    "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj": {}
   },
   "projects": {
-    "D:\\C#\\Destro\\Destro\\Destro.csproj": {
+    "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\C#\\Destro\\Destro\\Destro.csproj",
+        "projectUniqueName": "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj",
         "projectName": "Destro",
-        "projectPath": "D:\\C#\\Destro\\Destro\\Destro.csproj",
+        "projectPath": "D:\\Destro\\destro\\Destro\\Destro\\Destro.csproj",
         "packagesPath": "C:\\Users\\arthu\\.nuget\\packages\\",
-        "outputPath": "D:\\C#\\Destro\\Destro\\obj\\",
+        "outputPath": "D:\\Destro\\destro\\Destro\\Destro\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Naoh na)
+        public object GetTransfer(Naoh na)
         {
             var naService = new NaohService();
             return naService.GetTransfer(na);

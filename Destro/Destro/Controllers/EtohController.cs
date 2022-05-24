@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Etoh etao)
+        public object GetTransfer(Etoh etao)
         {
             var etaoService = new EtohService();
             return etaoService.GetTransfer(etao);

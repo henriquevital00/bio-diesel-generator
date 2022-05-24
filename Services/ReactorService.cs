@@ -8,9 +8,32 @@ namespace Destro.Services
         {
             return rea.Capacity;
         }
-        public object SetCapacityServ(Reactor rea, double quantity)
+        public double GetCapacityNaoh(Reactor rea)
         {
-            return rea.setCapacity(quantity);
+            return rea.naOh;
+        }
+        public double GetCapacityEtoh(Reactor rea)
+        {
+            return rea.etOh;
+        }
+        public double GetCapacityOil(Reactor rea)
+        {
+            return rea.oil;
+        }
+
+        public object SetCapacityNaohServ(Reactor rea, double quantity)
+        {
+            return rea.setCapacityNaoh(quantity);
+        }
+
+        public object SetCapacityEtohServ(Reactor rea, double quantity)
+        {
+            return rea.setCapacityEtoh(quantity);
+        }
+
+        public object SetCapacityOilServ(Reactor rea, double quantity)
+        {
+            return rea.setCapacityOil(quantity);
         }
         public object GetTransfer(Reactor rea)
         {

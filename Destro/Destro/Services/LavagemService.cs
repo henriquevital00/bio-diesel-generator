@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return lav.setCapacity(quantity);
         }
-        public double GetTransfer(Lavagem lav)
+        public object GetTransfer(Lavagem lav)
         {
             return lav.trasfer();
         }

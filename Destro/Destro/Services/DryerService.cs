@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return dry.setCapacity(quantity);
         }
-        public double GetTransfer(Dryer dry)
+        public object GetTransfer(Dryer dry)
         {
             return dry.trasfer();
         }

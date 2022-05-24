@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return rea.setCapacity(quantity);
         }
-        public double GetTransfer(Reactor rea)
+        public object GetTransfer(Reactor rea)
         {
             return rea.trasfer();
         }

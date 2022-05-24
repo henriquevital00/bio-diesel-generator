@@ -14,7 +14,7 @@ namespace Destro.Services
         {
             return dec.setCapacity(quantity);
         }
-        public double GetTransfer(Decantador dec)
+        public object GetTransfer(Decantador dec)
         {
             return dec.trasfer();
         }

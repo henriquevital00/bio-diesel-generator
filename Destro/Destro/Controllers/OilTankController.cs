@@ -1,3 +1,38 @@
+<<<<<<< HEAD
+﻿using BioDieselProject.Entity;
+using Destro.Services;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+
+namespace Destro.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class OilTankController : ControllerBase
+    {
+        [HttpGet]
+        public double GetCapacity(OilTank oil)
+        {
+            var oilService = new OilTankService();
+            return oilService.GetCapacity(oil);
+        }
+
+        [HttpPost]
+        public object SetCapacityApi(OilTank oil, double quantity)
+        {
+            var oilService = new OilTankService();
+            return oilService.SetCapacityServ(oil, quantity);
+        }
+
+        [HttpGet]
+        public object GetTransfer(OilTank oil)
+        {
+            var oilService = new OilTankService();
+            return oilService.GetTransfer(oil);
+        }
+    }
+}
+=======
 ﻿using BioDieselProject.Entity;
 using Destro.Services;
 using Microsoft.AspNetCore.Http;
@@ -31,3 +66,4 @@ namespace Destro.Controllers
         }
     }
 }
+>>>>>>> 122cc5460b05e9483b1f9b5f5cba8ec97f80e87c

@@ -12,7 +12,7 @@ namespace Destro.Services
         {
             return na.setCapacity(quantity);
         }
-        public double GetTransfer(Naoh na)
+        public object GetTransfer(Naoh na)
         {
             return na.trasfer();
         }

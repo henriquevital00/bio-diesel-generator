@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class DecantadorController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Decantador dec)
         {
             var decService = new DecantadorService();
             return decService.GetCapacity(dec);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Decantador dec, double quantity)
         {
             var decService = new DecantadorService();
             return decService.SetCapacityServ(dec, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Decantador dec)
         {
             var decService = new DecantadorService();

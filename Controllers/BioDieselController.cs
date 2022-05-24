@@ -9,7 +9,7 @@ namespace Destro.Controllers
     [ApiController]
     public class BioDieselController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(BioDiesel bio)
         {
             var bioService = new BioDieselService();

@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class ReactorController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Reactor react)
         {
             var reactService = new ReactorService();
             return reactService.GetCapacity(react);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Reactor react, double quantity)
         {
             var reactService = new ReactorService();
             return reactService.SetCapacityServ(react, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Reactor react)
         {
             var reactService = new ReactorService();

@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class GlicerineController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Glicerine glic)
         {
             var glicService = new GlicerineService();
             return glicService.GetCapacity(glic);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Glicerine glic, double quantity)
         {
             var glicService = new GlicerineService();
             return glicService.SetCapacityServ(glic, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Glicerine glic)
         {
             var glicService = new GlicerineService();

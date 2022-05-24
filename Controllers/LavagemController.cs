@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class LavagemController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Lavagem lav)
         {
             var lavService = new LavagemService();
             return lavService.GetCapacity(lav);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Lavagem lav, double quantity)
         {
             var lavService = new LavagemService();
             return lavService.SetCapacityServ(lav, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Lavagem lav)
         {
             var lavService = new LavagemService();

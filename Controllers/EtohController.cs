@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class EtohController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Etoh etao)
         {
             var etaoService = new EtohService();
             return etaoService.GetCapacity(etao);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Etoh etao, double quantity)
         {
             var etaoService = new EtohService();
             return etaoService.SetCapacityServ(etao, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Etoh etao)
         {
             var etaoService = new EtohService();

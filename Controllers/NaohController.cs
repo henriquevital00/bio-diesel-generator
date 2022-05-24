@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class NaohController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Naoh na)
         {
             var naService = new NaohService();
             return naService.GetCapacity(na);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Naoh na, double quantity)
         {
             var naService = new NaohService();
             return naService.SetCapacityServ(na, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Naoh na)
         {
             var naService = new NaohService();

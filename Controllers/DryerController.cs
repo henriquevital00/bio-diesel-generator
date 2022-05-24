@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class DryerController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(Dryer dry)
         {
             var dryService = new DryerService();
             return dryService.GetCapacity(dry);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(Dryer dry, double quantity)
         {
             var dryService = new DryerService();
             return dryService.SetCapacityServ(dry, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(Dryer dry)
         {
             var dryService = new DryerService();

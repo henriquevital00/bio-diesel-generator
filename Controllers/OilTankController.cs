@@ -9,21 +9,21 @@ namespace Destro.Controllers
     [ApiController]
     public class OilTankController : ControllerBase
     {
-        [HttpGet]
+        [HttpGet("getCapacity")]
         public double GetCapacity(OilTank oil)
         {
             var oilService = new OilTankService();
             return oilService.GetCapacity(oil);
         }
 
-        [HttpPost]
+        [HttpPost("setCapcity")]
         public object SetCapacityApi(OilTank oil, double quantity)
         {
             var oilService = new OilTankService();
             return oilService.SetCapacityServ(oil, quantity);
         }
 
-        [HttpGet]
+        [HttpGet("getTransfer")]
         public object GetTransfer(OilTank oil)
         {
             var oilService = new OilTankService();

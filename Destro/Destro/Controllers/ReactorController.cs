@@ -24,7 +24,7 @@ namespace Destro.Controllers
         }
 
         [HttpGet]
-        public double GetTransfer(Reactor react)
+        public object GetTransfer(Reactor react)
         {
             var reactService = new ReactorService();
             return reactService.GetTransfer(react);

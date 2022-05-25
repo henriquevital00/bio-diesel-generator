@@ -23,6 +23,13 @@ namespace Destro.Controllers
             return decService.SetCapacityServ(dec, quantity);
         }
 
+        [HttpPost("setStatus")]
+        public void SetStatusApi(dynamic? state)
+        {
+            var decService = new DecantadorService();
+            decService.SetStateServ(state.decantador);
+        }
+
         [HttpGet("getTransfer")]
         public object GetTransfer(Decantador dec)
         {

@@ -17,10 +17,10 @@ namespace Destro.Controllers
         }
 
         [HttpPost("setCapcity")]
-        public object SetCapacityApi(Naoh na, double quantity)
+        public void SetCapacityApi(dynamic? state)
         {
             var naService = new NaohService();
-            return naService.SetCapacityServ(na, quantity);
+            naService.SetCapacityServ(state.naOh, state.quantity);
         }
 
         [HttpGet("getTransfer")]

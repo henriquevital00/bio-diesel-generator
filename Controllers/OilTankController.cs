@@ -17,10 +17,10 @@ namespace Destro.Controllers
         }
 
         [HttpPost("setCapcity")]
-        public object SetCapacity(OilTank oil, double quantity)
+        public void SetCapacity(dynamic? state)//OilTank oil, double quantity)
         {
             var oilService = new OilTankService();
-            return oilService.SetCapacityServ(oil, quantity);
+            oilService.SetCapacityServ(state.oilTank, state.quantity);
         }
 
         [HttpGet("getTransfer")]

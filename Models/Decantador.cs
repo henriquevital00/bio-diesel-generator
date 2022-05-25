@@ -10,6 +10,7 @@ namespace BioDieselProject.Entity
     public class Decantador : IMachines
     {
         private bool sleeping = false;
+        private int timeToSleep = 5;
         public Decantador()
         {
             Capacity = 0;
@@ -22,20 +23,35 @@ namespace BioDieselProject.Entity
         public override object trasfer()
         {
             double transfer = 0;
-            sleeping = !sleeping;
 
-            if (Capacity <= Flow)
+            if (!sleeping)
             {
-                transfer = Capacity;
-                Capacity -= transfer;
-            }
-            else
-            {
-                transfer = Flow;
-                Capacity -= transfer;
+                if (Capacity <= Flow)
+                {
+                    transfer = Capacity;
+                    Capacity -= transfer;
+                }
+                else
+                {
+                    transfer = Flow;
+                    Capacity -= transfer;
+                }
             }
                 
             return new { transfer };
+        }
+
+        public void setState()
+        {
+            if (sleeping)
+            {
+                timeToSleep--;
+                if (timeToSleep == 0)
+                {
+                    sleeping = false;
+                    timeToSleep = 5;
+                }
+            }
         }
     }
 }

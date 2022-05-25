@@ -14,6 +14,12 @@ namespace Destro.Services
         {
             return dec.setCapacity(quantity);
         }
+
+        public void SetStateServ(Decantador dec)
+        {
+            dec.setState();
+        }
+        
         public object GetTransfer(Decantador dec)
         {
             return dec.trasfer();

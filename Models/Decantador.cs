@@ -36,7 +36,7 @@ namespace BioDieselProject.Entity
             }
             return new
             {
-                glicerine=
+                quantity
             };
         }
 

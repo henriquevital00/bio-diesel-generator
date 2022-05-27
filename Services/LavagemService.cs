@@ -8,6 +8,12 @@ namespace Destro.Services
         {
             return lav.Capacity;
         }
+
+        public double GetLost(Lavagem lav)
+        {
+            return lav.Lost;
+        }
+
         public object SetCapacityServ(Lavagem lav, double quantity)
         {
             return lav.setCapacity(quantity);

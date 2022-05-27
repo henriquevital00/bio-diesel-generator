@@ -18,6 +18,28 @@ namespace BioDieselProject.Entity
             Volume = 10;
         }
 
+        public override object setCapacity(double quantity)
+        {
+            if (Capacity <= Volume)
+            {
+                double sobrou = Volume - Capacity;
+                if (quantity <= sobrou)
+                {
+                    Capacity += quantity;
+                    quantity = 0;
+                }
+                else
+                {
+                    Capacity += sobrou;
+                    quantity -= sobrou;
+                }
+            }
+            return new
+            {
+                glicerine=
+            };
+        }
+
 
         // Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
         public override object trasfer()

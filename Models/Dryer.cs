@@ -4,6 +4,7 @@ namespace BioDieselProject.Entity
 {
     public class Dryer : IMachines
     {
+        public double lost = 0;
         public Dryer()
         {
             Capacity = 0;
@@ -14,7 +15,6 @@ namespace BioDieselProject.Entity
         public override object trasfer()
         {
             double transfer = 0;
-            double lost = 0;
             if (Capacity > 0)
             {
                 if (Capacity <= Flow)

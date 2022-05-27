@@ -17,44 +17,93 @@ namespace BioDieselProject.Entity
         {
             Capacity = 0;
             Flow = 5;
+            Volume = 5;
         }
 
         // metodo adiciona a quantidade que for possivel da substancia, se possivel adicionar tudo ele retorna o valor do que sobrou
         //da substancia
         public object setCapacityNaoh(double quantity)
         {
-            Capacity += quantity;
-            naOh += quantity;
+            if (Capacity <= Volume)
+            {
+                double sobrou = Volume - Capacity;
+                if (quantity <= sobrou)
+                {
+                    Capacity += quantity;
+                    naOh += quantity;
+                    quantity = 0;
+                }
+                else
+                {
+                    Capacity += sobrou;
+                    naOh += sobrou;
+                    quantity -= sobrou;
+                }
+            }
             return new
             {
-                Capacity,
-                naOh
+                quantity
             };
         }
 
         public object setCapacityEtoh(double quantity)
         {
-            Capacity += quantity;
-            etOh += quantity;
-            return new { Capacity, etOh };
+            if (Capacity <= Volume)
+            {
+                double sobrou = Volume - Capacity;
+                if (quantity <= sobrou)
+                {
+                    Capacity += quantity;
+                    etOh += quantity;
+                    quantity = 0;
+                }
+                else
+                {
+                    Capacity += sobrou;
+                    etOh += sobrou;
+                    quantity -= sobrou;
+                }
+            }
+            return new
+            {
+                quantity
+            };
         }
 
         public object setCapacityOil(double quantity)
         {
-            Capacity += quantity;
-            oil += quantity;
-            return new { Capacity, oil };
+            if (Capacity <= Volume)
+            {
+                double sobrou = Volume - Capacity;
+                if (quantity <= sobrou)
+                {
+                    Capacity += quantity;
+                    oil += quantity;
+                    quantity = 0;
+                }
+                else
+                {
+                    Capacity += sobrou;
+                    oil += sobrou;
+                    quantity -= sobrou;
+                }
+            }
+            return new
+            {
+                quantity
+            };
         }
 
         // Verificargit clone
         public override object trasfer()
         {
             double transfer = 0;
+            double parte = 0;
             if (Capacity > 0)
             {
                 if (Capacity <= Flow)
                 {
-                    double parte = Capacity/4;
+                    parte = Capacity/4;
                     if (naOh >= parte && etOh >= parte && oil >= (parte * 2))
                     {
                         transfer = Capacity;
@@ -66,7 +115,7 @@ namespace BioDieselProject.Entity
                 }
                 else
                 {
-                    double parte = Flow / 4;
+                    parte = Flow / 4;
                     if (naOh >= parte && etOh >= parte && oil >= (parte * 2))
                     {
                         transfer = Flow;
@@ -77,7 +126,7 @@ namespace BioDieselProject.Entity
                     }
                 }
             }
-            return new { transfer, naOh, etOh, oil };
+            return new { transfer, naOh=parte, etOh=parte, oil=(parte*2) };
         }
     }
 }

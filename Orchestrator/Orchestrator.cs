@@ -24,6 +24,11 @@ namespace Orchestrators
         private Naoh naOh;
         private Etoh etOh;
         private Decantador decantador;
+        private Glicerine glicerine;
+        private DryerToEtOh dryerToEtOh;
+        private Lavagem lavagem;
+        private Dryer dryer;
+        private BioDiesel bioDiesel;
 
         public Orchestrator()
         {
@@ -45,6 +50,11 @@ namespace Orchestrators
             naOh = new Naoh();
             etOh = new Etoh();
             decantador = new Decantador();
+            glicerine = new Glicerine();
+            dryerToEtOh = new DryerToEtOh();
+            lavagem = new Lavagem();
+            dryer = new Dryer();
+            bioDiesel = new BioDiesel();
         }
 
         public void Start()
@@ -62,44 +72,57 @@ namespace Orchestrators
             if (transferTanqueOleo.transfer > 0)
             {
                 dynamic quantidadeOleoReator = reactorController.SetCapacityOilApi(reactor, transferTanqueOleo);
-                //Verificar volume do reator
-                // Insere Oleo no reator
-                if (quantidadeOleoReator > 0)
+
+                // Verifica se sobrou substancia, caso o reator tenha atingido o volume total
+                if (quantidadeOleoReator.quantity > 0)
                 {
-                    reactorController.SetCapacityOilApi(reactor, quantidadeOleoReator);
+                    oilTankController.SetCapacity(new { oilTank, quantidadeOleoReator.quantity });
                 }
             }
             //Transfere Etoh para Reator
             if (etohController.GetCapacity(etOh) > 0)
             {
                 dynamic quantidadeEtOhTranferida = etohController.GetTransfer(etOh);
-                
+                dynamic quantidadeEtOhReactor = reactorController.SetCapacityEtohApi(reactor, quantidadeEtOhTranferida);
+
                 // Insere EtOh no reator
-                if (quantidadeEtOhTranferida > 0)
+                if (quantidadeEtOhReactor.quantity > 0)
                 {
-                    reactorController.SetCapacityEtohApi(reactor, quantidadeEtOhTranferida);
+                    etohController.SetCapacityApi(new { etOh, quantidadeEtOhReactor.quantity });
                 }
             }
             // transfere Naoh para Reator
-            if (etohController.GetCapacity(etOh) > 0)
+            if (naohController.GetCapacity(naOh) > 0)
             {
                 dynamic quantidadeNaOhTranferida = naohController.GetTransfer(naOh);
+                dynamic quantidadeNaOhReactor = reactorController.SetCapacityNaohApi(reactor, quantidadeNaOhTranferida);
                 // insere Naoh no reator
 
-                if (quantidadeNaOhTranferida > 0)
+                if (quantidadeNaOhTranferida.quantity > 0)
                 {
-                    reactorController.SetCapacityNaohApi(reactor, quantidadeNaOhTranferida);
+                    naohController.SetCapacityApi(new { etOh, quantidadeNaOhReactor.quantity });
                 }
-
             }
+
+            // Reator esta transferindo
             dynamic quantidadeTransferidaReator = reactorController.GetTransfer(reactor);
             dynamic quantidadeTransferidaDecantador = 0;
 
             // Insere a transferencia do reator no decantador
             // Verificar se pode inserir tudo
-            if (quantidadeTransferidaReator > 0)
+
+            //VER COM ARTHUR O DECANTADOR
+            /*if (quantidadeTransferidaReator.transfer > 0)
             {
-                decantadorController.SetCapacityApi(decantador, quantidadeTransferidaReator);
+                // Verificar set Decantador
+                dynamic capacidadeDecantador = decantadorController.SetCapacityApi(decantador, quantidadeTransferidaReator);
+
+                if (capacidadeDecantador.quantity > 0)
+                {
+                    reactorController.SetCapacityEtohApi(reactor, capacidadeDecantador.etOh);
+                    reactorController.SetCapacityNaohApi(reactor, capacidadeDecantador.naOh);
+                    reactorController.SetCapacityOilApi(reactor, capacidadeDecantador.oil);
+                }
             }
             // Verifica se o Decantador possui substancia para transferir
             if (decantadorController.GetCapacity(decantador) > 0)
@@ -110,7 +133,23 @@ namespace Orchestrators
             if (quantidadeTransferidaDecantador > 0)
             {
 
-            }
+            }*/
+
+            // Seta a Lavagem com a parte transferida do decantador
+            // Lavegm não possui volume
+            lavagemController.SetCapacityApi(lavagem, quantidadeTransferidaDecantador.substance);
+
+            // Transfere da Lavagem para o Secador
+            dynamic quantidadeTransferidaLavagem = lavagemController.GetTransfer(lavagem);
+
+            dryerController.SetCapacityApi(dryer, quantidadeTransferidaLavagem.transfer);
+
+            dynamic quantidadeTransferidaSecador = dryerController.GetTransfer(dryer);
+
+
+
+
+
         }
     }
 }

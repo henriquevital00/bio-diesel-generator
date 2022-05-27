@@ -16,6 +16,13 @@ namespace Destro.Controllers
             return lavService.GetCapacity(lav);
         }
 
+        [HttpGet("getLost")]
+        public double GetLost(Lavagem lav)
+        {
+            var lavService = new LavagemService();
+            return lavService.GetLost(lav);
+        }
+
         [HttpPost("setCapcity")]
         public object SetCapacityApi(Lavagem lav, double quantity)
         {

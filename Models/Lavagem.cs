@@ -11,6 +11,7 @@ namespace BioDieselProject.Entity
 
     {
         private double Waste = 0;
+        public double Lost = 0;
         public Lavagem()
         {
             Capacity = 0;
@@ -25,17 +26,17 @@ namespace BioDieselProject.Entity
             double lost = 0;
             if (Capacity <= Flow)
             {
-                lost = Capacity - (Capacity * Waste);
+                Lost = Capacity - (Capacity * Waste);
                 transfer = (((Capacity * Waste) * Waste) * Waste);
                 Capacity -= transfer;
             }
             else
             {
-                lost = Capacity - (Flow * Waste);
+                Lost = Capacity - (Flow * Waste);
                 transfer = (((Flow * Waste) * Waste) * Waste);
                 Capacity -= transfer;
             }
-            return new { transfer, lost };
+            return new { transfer, Lost };
         }
     }
 }

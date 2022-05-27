@@ -10,7 +10,7 @@ namespace Destro.Services
         {
             return dec.Capacity;
         }
-        public object SetCapacityServ(Decantador dec, double quantity)
+        public object SetCapacityServ(Decantador dec, dynamic quantity)
         {
             return dec.setCapacity(quantity);
         }

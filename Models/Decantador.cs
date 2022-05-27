@@ -18,20 +18,32 @@ namespace BioDieselProject.Entity
             Volume = 10;
         }
 
-        public override object setCapacity(double quantity)
+        public object setCapacity(dynamic quantity)
         {
             if (Capacity <= Volume)
             {
-                double sobrou = Volume - Capacity;
-                if (quantity <= sobrou)
+                var diff = Volume - Capacity;
+                var volAbsoluto = diff / 4;
+                if (quantity.transfer >= diff)
                 {
-                    Capacity += quantity;
-                    quantity = 0;
+                    quantity.etOh -= volAbsoluto;
+                    quantity.naOh -= volAbsoluto;
+                    quantity.oil -= volAbsoluto*2;
+                    var volumeNaoh = volAbsoluto;
+                    var volumeEtoh = volAbsoluto;
+                    var volumeOleo = 2 * volAbsoluto;
+                    Capacity += diff;
                 }
                 else
                 {
-                    Capacity += sobrou;
-                    quantity -= sobrou;
+                    quantity.etOh = 0;
+                    quantity.naOh = 0;
+                    quantity.oil = 0;
+                    var volumeNaoh = quantity.naOh;
+                    var volumeEtoh = quantity.etOh;
+                    var volumeOleo = 2 * quantity.oil;
+
+                    Capacity += quantity.transfer;
                 }
             }
             return new
@@ -59,8 +71,8 @@ namespace BioDieselProject.Entity
                     Capacity -= transfer;
                 }
             }
-                
-            return new { transfer };
+
+            return new { transfer, Glicerine = transfer * 0.01 , etOh = transfer*0.03, solution = transfer*0.96 };
         }
 
         public void setState()

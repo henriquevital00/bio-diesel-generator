@@ -29,12 +29,14 @@ namespace BioDieselProject.Entity
                 Lost = Capacity - (Capacity * Waste);
                 transfer = (((Capacity * Waste) * Waste) * Waste);
                 Capacity -= transfer;
+                Lost = lost;
             }
             else
             {
                 Lost = Capacity - (Flow * Waste);
                 transfer = (((Flow * Waste) * Waste) * Waste);
                 Capacity -= transfer;
+                Lost = lost;
             }
             return new { transfer, Lost };
         }

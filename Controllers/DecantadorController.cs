@@ -16,8 +16,8 @@ namespace Destro.Controllers
             return decService.GetCapacity(dec);
         }
 
-        [HttpPost("setCapcity")]
-        public object SetCapacityApi(Decantador dec, double quantity)
+        [HttpPost("setCapacity")]
+        public object SetCapacityApi(Decantador dec, dynamic quantity)
         {
             var decService = new DecantadorService();
             return decService.SetCapacityServ(dec, quantity);

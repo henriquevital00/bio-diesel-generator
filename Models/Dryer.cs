@@ -30,7 +30,7 @@ namespace BioDieselProject.Entity
                     Capacity -= transfer;
                 }
             }
-            return new { transfer, lost };
+            return new { quantity = transfer, lost };
         }
     }
 }

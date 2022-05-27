@@ -10,5 +10,9 @@ namespace Destro.Services
         {
             return bio.Capacity;
         }
+        public object SetCapacity(BioDiesel bio, double quantity)
+        {
+            return bio.Capacity = quantity;
+        }
     }
 }

@@ -63,7 +63,7 @@ namespace Orchestrators
             new Timer(oilTankController.SetCapacity, new { oilTank, quantity = Utils.RandomNumber(1, 2) }, 0, 10000);
             new Timer(etohController.SetCapacityApi, new { etOh, quantity = 0.25 }, 0, 1000);
             new Timer(naohController.SetCapacityApi, new { naOh, quantity = 0.5 }, 0, 1000);
-            new Timer(decantadorController.SetStatusApi, null, 0, 1000);
+            new Timer(decantadorController.SetStatusApi, new {decantador}, 0, 1000);
 
             // Transfere Oleo
             dynamic transferTanqueOleo = oilTankController.GetTransfer(oilTank);
@@ -109,10 +109,7 @@ namespace Orchestrators
             dynamic quantidadeTransferidaDecantador = 0;
 
             // Insere a transferencia do reator no decantador
-            // Verificar se pode inserir tudo
-
-            //VER COM ARTHUR O DECANTADOR
-            /*if (quantidadeTransferidaReator.transfer > 0)
+            if (quantidadeTransferidaReator.transfer > 0)
             {
                 // Verificar set Decantador
                 dynamic capacidadeDecantador = decantadorController.SetCapacityApi(decantador, quantidadeTransferidaReator);
@@ -130,14 +127,16 @@ namespace Orchestrators
                 quantidadeTransferidaDecantador = decantadorController.GetTransfer(decantador);
             }
 
-            if (quantidadeTransferidaDecantador > 0)
+            if (quantidadeTransferidaDecantador.transfer > 0)
             {
+                glicerineController.SetCapacityApi(glicerine, quantidadeTransferidaDecantador.glicerine);
+                dryerToEtOhController.SetCapacityApi(dryerToEtOh, quantidadeTransferidaDecantador.etOh);
+                lavagemController.SetCapacityApi(lavagem, quantidadeTransferidaDecantador.solution);
+            }
 
-            }*/
-
-            // Seta a Lavagem com a parte transferida do decantador
-            // Lavegm não possui volume
-            lavagemController.SetCapacityApi(lavagem, quantidadeTransferidaDecantador.substance);
+            // Secador EtOh
+            dynamic quantidadeTransferidaSecadorParaEtOh  = dryerToEtOhController.GetTransfer(dryerToEtOh);
+            etohController.SetCapacityApi(new {etOh, quantidadeTransferidaSecadorParaEtOh});
 
             // Transfere da Lavagem para o Secador
             dynamic quantidadeTransferidaLavagem = lavagemController.GetTransfer(lavagem);
@@ -145,6 +144,9 @@ namespace Orchestrators
             dryerController.SetCapacityApi(dryer, quantidadeTransferidaLavagem.transfer);
 
             dynamic quantidadeTransferidaSecador = dryerController.GetTransfer(dryer);
+
+            //biodiesel
+            bioDieselController.SetCapacity(bioDiesel, quantidadeTransferidaSecador.transfer);
 
 
 

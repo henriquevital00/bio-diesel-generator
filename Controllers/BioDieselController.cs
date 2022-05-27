@@ -16,5 +16,13 @@ namespace Destro.Controllers
             return bioService.GetCapacity(bio);
 
         }
+
+        [HttpGet("setCapacity")]
+        public object SetCapacity(BioDiesel bio, double quantity)
+        {
+            var bioService = new BioDieselService();
+            return bioService.SetCapacity(bio, quantity);
+
+        }
     }
 }

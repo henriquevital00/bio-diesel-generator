@@ -6,18 +6,17 @@ class BioDiesel(IMachines):
     def __init__(self):
         super().__init__()
         self.Capacity = 2
-        self.hostToReactor = ""
-        self.portToReactor = 65432
-        self.portFromReactor = 65433
+        self.host = ""
+        self.port = 65432
+        self.portToReactor = 65433
 
     def verify(self):
-
+        time.sleep(5)
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.bind((self.hostToReactor, self.portFromReactor))
+            s.bind((self.host, self.port))
             send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            send.connect((self.hostToReactor, self.portToReactor))
+            send.connect((self.host, self.portToReactor))
             while True:
-                time.sleep(1)
                 if self.Capacity > 0:
                     send.sendall("get_restante".encode("utf-8"))
                     s.listen()
@@ -31,4 +30,5 @@ class BioDiesel(IMachines):
                             if transferToReactor["transfer"] > 0:
                                 transferToString = str(transferToReactor["transfer"])
                                 print(f"Valor a ser transferido {transferToReactor}")
-                                self.sendMessage(self.hostToReactor, self.portToReactor, transferToString)
+                                send.sendall(transferToString)
+                time.sleep(1)

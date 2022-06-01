@@ -1,5 +1,6 @@
 ﻿from Interface.IMachines import IMachines
-
+import socket
+import time
 
 class Reactor(IMachines):
 
@@ -11,9 +12,9 @@ class Reactor(IMachines):
         self.naOh = 0
         self.etOh = 0
         self.oil = 0
-        self.hostFromBioDiesel = ""
-        self.portFromBioDiesel = 65432
-        self.portToBioDiesel = 65433
+        self.host = ""
+        self.portToBioDiesel = 65432
+        self.port = 65433
 
     def getRestante(self) -> int:
         return self.Volume - self.Capacity
@@ -85,9 +86,21 @@ class Reactor(IMachines):
         return { "tansfer":transfer, "naOh":parte, "etOh":parte, "oil":(parte*2) }
 
     def verify(self):
-        receivedMessage = self.receiveMessage(self.hostFromBioDiesel, self.portFromBioDiesel)
-        if receivedMessage == "get_restante":
-            print("aqui")
-            restante = str(self.getRestante())
-            self.sendMessage(self.hostFromBioDiesel, self.portToBioDiesel, restante)
-        #elif receivedMessage == "setEtOh":
+        print("aqui")
+        send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        send.connect((self.host, self.portToBioDiesel))
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind((self.host, self.port))
+            while True:
+                print("entrou")
+                s.listen()
+                conn, addr = s.accept()
+                with conn:
+                    receivedMessage = conn.recv(1024)
+                    if receivedMessage == "get_restante":
+                        print("aqui")
+                        restante = str(self.getRestante())
+                        send.sendall(restante.encode("utf-8"))
+                        #self.sendMessage(self.hostFromBioDiesel, self.portToBioDiesel, restante)
+                    #elif receivedMessage == "setEtOh":
+                    time.sleep(1)

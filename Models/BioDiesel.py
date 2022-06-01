@@ -8,21 +8,23 @@ class BioDiesel(IMachines):
         self.Capacity = 2
         self.host = ""
         self.port = 65432
-        self.portToReactor = 65433
+        self.portToReactor = 65434
 
     def verify(self):
-        time.sleep(5)
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
             send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             send.connect((self.host, self.portToReactor))
             while True:
                 if self.Capacity > 0:
+                    print("oleo")
                     send.sendall("get_restante".encode("utf-8"))
+                    print("enviou oleo")
                     s.listen()
                     conn, addr = s.accept()
                     with conn:
-                        data = conn.recv(1024)
+                        data = conn.recv(1024).decode("utf-8")
                         if data:
                             msgRecebida = data.decode("utf-8")
                             print(f"Mensagem recebida: {msgRecebida}")

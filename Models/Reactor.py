@@ -14,7 +14,7 @@ class Reactor(IMachines):
         self.oil = 0
         self.host = ""
         self.portToBioDiesel = 65432
-        self.port = 65433
+        self.port = 65434
 
     def getRestante(self) -> int:
         return self.Volume - self.Capacity
@@ -86,21 +86,24 @@ class Reactor(IMachines):
         return { "tansfer":transfer, "naOh":parte, "etOh":parte, "oil":(parte*2) }
 
     def verify(self):
-        print("aqui")
-        send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        send.connect((self.host, self.portToBioDiesel))
+
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
+            send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            send.connect((self.host, self.portToBioDiesel))
             while True:
-                print("entrou")
+                print("reator")
                 s.listen()
                 conn, addr = s.accept()
+                print("pegou o conn")
+                print(f"\n{conn}\n")
                 with conn:
-                    receivedMessage = conn.recv(1024)
+                    receivedMessage = conn.recv(1024).decode("utf-8")
+                    print(f"\nMensagem recebida: {receivedMessage}")
                     if receivedMessage == "get_restante":
-                        print("aqui")
+                        print("veio reator")
                         restante = str(self.getRestante())
-                        send.sendall(restante.encode("utf-8"))
+                        #send.sendall(restante.encode("utf-8"))
                         #self.sendMessage(self.hostFromBioDiesel, self.portToBioDiesel, restante)
                     #elif receivedMessage == "setEtOh":
                     time.sleep(1)

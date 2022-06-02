@@ -27,7 +27,8 @@ class Naoh(IMachines):
                     s.send(b"get_naoh")
                     data = s.recv(1024).decode("utf-8")
                     if float(data) < 1.25:
-                        transfer = self.calculateTransfer(float(data))
+                        sobra = 1.25 - float(data)
+                        transfer = self.calculateTransfer(sobra)
                         if transfer > 0:
                             sendString = f"set_naoh {transfer}"
                             s.send(sendString.encode("utf-8"))

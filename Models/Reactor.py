@@ -72,6 +72,7 @@ class Reactor(IMachines):
             if ready_sockets:
                 receivedMessage = clientsocket.recv(1024).decode("utf-8")
                 receivedMessage = receivedMessage.split()
+                #print(f"Capacidade do reator: {self.Capacity} Oleo: {self.oil} ETOH: {self.etOh} NAoh: {self.naOh}")
                 if receivedMessage[0] == "get_restante":
                     restante = str(self.getRestante())
                     print(f"\nRetornando valor: {restante}\n")

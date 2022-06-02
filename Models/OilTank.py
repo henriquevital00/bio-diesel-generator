@@ -18,14 +18,14 @@ class OilTank(IMachines):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToReactor))
             while True:
-                #print(f"Capcidade do while: {self.Capacity}")
                 if self.Capacity > 0:
                     s.send(b"get_oil")
                     data = s.recv(1024).decode("utf-8")
-                 #   print(f"Capacidade: {data}")
+                    print(f"Capacidade tanque reator: {data}")
                     if float(data) < 2.5:
-                        transfer = self.calculateTransfer(float(data))
-                  #      print(f"Valor a ser transferido: {transfer}")
+                        sobra = 2.5 - float(data)
+                        transfer = self.calculateTransfer(sobra)
+                        #print(f"\nValor a ser transferido: {transfer}")
                         if transfer > 0:
                             sendString = f"set_oil {transfer}"
                             s.send(sendString.encode("utf-8"))
@@ -44,7 +44,6 @@ class OilTank(IMachines):
                 receivedMessage = receivedMessage.split()
                 if receivedMessage[0] == "set_capacity":
                     self.setCapacity(float(receivedMessage[1]))
-                    print(f"Capacidade Recebida tanque de oleo: {self.Capacity}")
 
         clientsocket.close()
 

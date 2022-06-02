@@ -16,6 +16,7 @@ class IMachines:
 
     def calculateTransfer(self, restante=""):
         transfer = 0
+        #print(f"Capacidade no tansfere: {self.Capacity}, variavel recebida: {restante}")
         #restante = kwargs.pop("restante", "")
 
         if (self.Capacity > 0):

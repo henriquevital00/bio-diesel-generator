@@ -26,7 +26,6 @@ def runMachines():
     dryerToEtoh = DryerToEtOh()
     etoh = Etoh()
     naoh = Naoh()
-    dashboard = Dashboard(oilResidualTank, oilTank, reactor, decantador, glicerine, lavagem, dryer, bioDiesel, dryerToEtoh, etoh, naoh)
 
 
     # Nao tem transfereLoop, este só transfere pelo verify
@@ -67,7 +66,7 @@ def runMachines():
     naohThreadTransfer = threading.Thread(target=naoh.transfereLoop)
 
     # Dashboard para mostrar os dados
-    dashboardThread = threading.Thread(target=dashboard.show)
+    dashboardThread = threading.Thread(target=Dashboard.show, args=(oilResidualTank, oilTank, reactor, decantador, glicerine, lavagem, dryer, bioDiesel, dryerToEtoh, etoh, naoh))
 
 
 
@@ -83,13 +82,14 @@ def runMachines():
                    lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
                    etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
                    decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
-                   etohThreadTransfer, naohThreadTransfer, dashboardThread, etohThreadSetCapacity, naohThreadSetCapacity]
+                   etohThreadTransfer, naohThreadTransfer, oilResidualTankThreadSetCapacity, etohThreadSetCapacity, naohThreadSetCapacity,
+                   dashboardThread]
 
 
     for item in range(len(threadsList)):
         threadsList[item].start()
     #time.sleep(8)
-    oilResidualTankThreadSetCapacity.start()
+    #oilResidualTankThreadSetCapacity.start()
 
 if __name__ == '__main__':
     runMachines()

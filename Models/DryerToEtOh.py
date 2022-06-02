@@ -25,7 +25,7 @@ class DryerToEtOh(IMachines):
                     transfer = sizeSubstance * self.Waste
                     self.Capacity -= transfer
                     if transfer > 0:
-                        print(f"Transferindo Secador: {transfer:.{3}f}   Perda: {self.lost}")
+                        #print(f"Transferindo Secador: {transfer:.{3}f}   Perda: {self.lost}")
                         sendToEtohTransferString = f"set_capacity {transfer}"
                         s.send(sendToEtohTransferString.encode("utf-8"))
                         time.sleep(5)
@@ -45,4 +45,4 @@ class DryerToEtOh(IMachines):
                     receivedMessage = receivedMessage.split()
                     if receivedMessage[0] == "set_capacity":
                         self.setCapacity(float(receivedMessage[1]))
-                        print(f"Capacidade Secador para EToh: {self.Capacity}")
+                        #print(f"Capacidade Secador para EToh: {self.Capacity}")

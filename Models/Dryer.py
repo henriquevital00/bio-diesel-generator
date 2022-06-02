@@ -30,7 +30,6 @@ class Dryer(IMachines):
                     transfer = sizeSubstance * self.Waste
                     self.Capacity -= transfer
                     if transfer > 0:
-                        #print(f"Transferindo Secador: {transfer:.{3}f}   Perda: {self.lost}")
                         sendToEtohTransferString = f"set_capacity {transfer:.{3}f}"
                         s.send(sendToEtohTransferString.encode("utf-8"))
                         time.sleep(5)

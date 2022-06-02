@@ -16,7 +16,7 @@ class Decantador(IMachines):
         self.port = 65433
         self.portToGlicerine = 65437
         self.portToLavagem = 65438
-        self.portToSecador = 65434
+        self.portToSecadorToEtoh = 65435
 
     def setCapacity(self, quantity):
         self.Capacity += quantity
@@ -30,7 +30,7 @@ class Decantador(IMachines):
         toSecadorSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toGlicerinaSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toLavagemSocket.connect((self.host, self.portToLavagem))
-        toSecadorSocket.connect((self.host, self.portToSecador))
+        toSecadorSocket.connect((self.host, self.portToSecadorToEtoh))
         toGlicerinaSocket.connect((self.host, self.portToGlicerine))
 
         while True:

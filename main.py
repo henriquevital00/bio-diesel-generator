@@ -88,7 +88,7 @@ def runMachines():
 
     for item in range(len(threadsList)):
         threadsList[item].start()
-    time.sleep(8)
+    #time.sleep(8)
     oilResidualTankThreadSetCapacity.start()
 
 if __name__ == '__main__':

@@ -39,6 +39,7 @@ class OilTank(IMachines):
                 receivedMessage = clientsocket.recv(1024).decode("utf-8")
                 receivedMessage = receivedMessage.split()
                 if receivedMessage[0] == "set_capacity":
+                    print(F"TESTANDO: {self.Capacity}")
                     self.setCapacity(float(receivedMessage[1]))
 
         clientsocket.close()
@@ -47,7 +48,7 @@ class OilTank(IMachines):
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
-            s.listen(5)
             while True:
+                s.listen()
                 conn, addr = s.accept()
                 threading.Thread(target=self.responde, args=(conn, addr)).start()

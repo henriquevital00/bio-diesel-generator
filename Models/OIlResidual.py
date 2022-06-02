@@ -12,8 +12,9 @@ class OilResidual(IMachines):
         self.portToOilTank = 65440
 
     def setCapacity(self):
-        self.Capacity += random.uniform(1, 2)
-        time.sleep(10)
+        while True:
+            self.Capacity += random.uniform(1, 2)
+            time.sleep(10)
 
     def verify(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

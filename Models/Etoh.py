@@ -14,8 +14,9 @@ class Etoh(IMachines):
         self.portToReator = 65441
 
     def setCapacityContinue(self):
-        self.Capacity += 0.25
-        time.sleep(1)
+        while True:
+            self.Capacity += 0.25
+            time.sleep(1)
 
     def transfereLoop(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:

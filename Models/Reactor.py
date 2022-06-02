@@ -1,6 +1,9 @@
-﻿from Interface.IMachines import IMachines
+﻿import threading
+
+from Interface.IMachines import IMachines
 import socket
 import time
+import select
 
 class Reactor(IMachines):
 
@@ -13,97 +16,79 @@ class Reactor(IMachines):
         self.etOh = 0
         self.oil = 0
         self.host = ""
-        self.portToBioDiesel = 65432
-        self.port = 65434
+        self.portToDecantador = 65440
+        self.port = 65441
 
     def getRestante(self) -> int:
         return self.Volume - self.Capacity
 
-    # metodo adiciona a quantidade que for possivel da substancia, se possivel adicionar tudo ele retorna o valor do que sobrou
-    # da substancia
     def setCapacityNaoh(self, quantity):
-        if (self.Capacity <= self.Volume):
-            sobrou = self.Volume - self.Capacity
-            if (quantity <= sobrou):
-                self.Capacity += quantity
-                self.naOh += quantity
-                quantity = 0
-            else:
-                self.Capacity += sobrou
-                self.naOh += sobrou
-                quantity -= sobrou
-        return {"quantity": quantity}
+        self.Capacity += quantity
+        self.naOh += quantity
 
     def setCapacityEtoh(self,  quantity):
-        if (self.Capacity <= self.Volume):
-            sobrou = self.Volume - self.Capacity
-            if (quantity <= sobrou):
-                self.Capacity += quantity
-                self.etOh += quantity
-                quantity = 0
-            else:
-                self.Capacity += sobrou
-                self.etOh += sobrou
-                quantity -= sobrou
-        return {"quantity": quantity}
+        self.Capacity += quantity
+        self.etOh += quantity
 
     def setCapacityOil(self, quantity):
-        print("oi")
-        #if (self.Capacity <= self.Volume):
-        #    sobrou = self.Volume - self.Capacity
-        #    if (quantity <= sobrou):
-        #        self.Capacity += quantity
-        #        self.oil += quantity
-        #        quantity = 0
-        #    else:
-        #        self.Capacity += sobrou
-        #        self.oil += sobrou
-        #        quantity -= sobrou
-        #return {"quantity": quantity}
+        self.Capacity += quantity
+        self.oil += quantity
 
-    # Verificargit clone
-    def trasfer(self):
+    def calculateTransfer(self, restante):
         transfer = 0
         parte = 0
         if (self.Capacity > 0):
-            if (self.Capacity <= self.Flow):
-                parte = self.Capacity/4
-                if (self.naOh >= parte and self.etOh >= parte and self.oil >= (parte * 2)):
-                    transfer = self.Capacity
-                    self.Capacity -= transfer
-                    self.naOh -= parte
-                    self.etOh -= parte
-                    self.oil -= (parte*2)
-            else:
-                parte = self.Flow / 4
-                if (self.naOh >= parte and self.etOh >= parte and self.oil >= (parte * 2)):
-                    transfer = self.Flow
-                    self.Capacity -= transfer
-                    self.naOh -= parte
-                    self.etOh -= parte
-                    self.oil -= (parte*2)
+            sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
+            quantidadeASerTransferida = restante if restante <= sizeSubstance else sizeSubstance
+            parte = quantidadeASerTransferida/4
+            if (self.naOh >= parte and self.etOh >= parte and self.oil >= (parte * 2)):
+                transfer = quantidadeASerTransferida
+                self.Capacity -= transfer
+                self.naOh -= parte
+                self.etOh -= parte
+                self.oil -= (parte*2)
 
-        return { "tansfer":transfer, "naOh":parte, "etOh":parte, "oil":(parte*2) }
+        return transfer
+
+    def transfereLoop(self):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.connect((self.host, self.portToDecantador))
+            while True:
+                if self.Capacity > 0:
+                    s.send(b"get_restante")
+                    data = s.recv(1024).decode("utf-8")
+                    transfer = self.calculateTransfer(float(data))
+                    if transfer > 0:
+                        sendString = f"set_capacity {transfer}"
+                        s.send(sendString.encode("utf-8"))
+                    time.sleep(1)
+
+    def responde(self, clientsocket, addr):
+        timeout = 30
+        while True:
+            ready_sockets, _, _ = select.select(
+                [clientsocket], [], [], timeout
+            )
+            if ready_sockets:
+                receivedMessage = clientsocket.recv(1024).decode("utf-8")
+                receivedMessage = receivedMessage.split()
+                if receivedMessage[0] == "get_restante":
+                    restante = str(self.getRestante())
+                    clientsocket.send(restante.encode("utf-8"))
+                elif receivedMessage[0] == "set_oil":
+                    self.setCapacityOil(float(receivedMessage[1]))
+                elif receivedMessage[0] == "set_etoh":
+                    self.setCapacityEtoh(float(receivedMessage[1]))
+                elif receivedMessage[0] == "set_naoh":
+                    self.setCapacityNaoh(float(receivedMessage[1]))
+
+        clientsocket.close()
 
     def verify(self):
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
-            send = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            send.connect((self.host, self.portToBioDiesel))
+            s.listen(5)
             while True:
-                print("reator")
-                s.listen()
                 conn, addr = s.accept()
-                print("pegou o conn")
-                print(f"\n{conn}\n")
-                with conn:
-                    receivedMessage = conn.recv(1024).decode("utf-8")
-                    print(f"\nMensagem recebida: {receivedMessage}")
-                    if receivedMessage == "get_restante":
-                        print("veio reator")
-                        restante = str(self.getRestante())
-                        #send.sendall(restante.encode("utf-8"))
-                        #self.sendMessage(self.hostFromBioDiesel, self.portToBioDiesel, restante)
-                    #elif receivedMessage == "setEtOh":
-                    time.sleep(1)
+                threading.Thread(target=self.responde, args=(conn, addr)).start()

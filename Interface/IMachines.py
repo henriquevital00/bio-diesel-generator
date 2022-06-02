@@ -1,4 +1,5 @@
 ﻿import socket
+import time
 
 
 class IMachines:
@@ -13,9 +14,9 @@ class IMachines:
 
         return { "Capacity": self.Capacity }
 
-    def trasfer(self, **kwargs):
+    def calculateTransfer(self, restante=""):
         transfer = 0
-        restante = kwargs.pop("restante", "")
+        #restante = kwargs.pop("restante", "")
 
         if (self.Capacity > 0):
             sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
@@ -26,7 +27,19 @@ class IMachines:
             else:
                 transfer = sizeSubstance
                 self.Capacity -= transfer
-        return {"transfer": transfer}
+        return transfer
+
+    def trasfer(self, HOST, PORT):
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as send:
+            send.connect((HOST, PORT))
+            while True:
+                send.sendall(b"get_transfer")
+                data = send.recv(1024).decode("utf-8")
+                if data:
+                    self.calculateTransfer(restante)
+                time.sleep(1)
+
+
 
         #transfer = 0
         #if (self.Capacity > 0):

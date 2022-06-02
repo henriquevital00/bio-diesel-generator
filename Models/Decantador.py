@@ -1,5 +1,7 @@
 ﻿from Interface.IMachines import IMachines
-
+import socket
+import time
+import select
 
 class Decantador(IMachines):
 
@@ -10,38 +12,65 @@ class Decantador(IMachines):
         self.Flow = 1
         self.Volume = 10
         self.timeToSleep = 5
+        self.host = ""
+        self.port = 65433
+        self.portToGlicerine = 65437
+        self.portToLavagem = 65438
+        self.portToSecador = 65434
 
     def setCapacity(self, quantity):
-        if (self.Capacity <= self.Volume):
-            sobrou = self.Volume - self.Capacity
-            if (quantity <= sobrou):
-                Capacity += quantity
-                quantity = 0
-            else:
-                Capacity += sobrou
-                quantity -= sobrou
-        return
-        {
-            "quantity":quantity
-        }
+        self.Capacity += quantity
+
+    def getRestante(self):
+        return self.Volume - self.Capacity
 
     # Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
     def trasfer(self):
-        transfer = 0
+        toLavagemSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        toSecadorSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        toGlicerinaSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        toLavagemSocket.connect((self.host, self.portToLavagem))
+        toSecadorSocket.connect((self.host, self.portToSecador))
+        toGlicerinaSocket.connect((self.host, self.portToGlicerine))
 
-        if (not self.sleeping):
-            if (self.Capacity <= self.Flow):
-                transfer = self.Capacity
-                self.Capacity -= transfer
-            else:
-                transfer = self.Flow
-                self.Capacity -= transfer
-
-        return { "transfer": transfer }
-
-    def setState(self):
-        if (self.sleeping):
-            timeToSleep -= 1
-            if (timeToSleep == 0):
+        while True:
+            if self.Capacity > 0:
+                transfer = 0
                 self.sleeping = False
-                timeToSleep = 5
+
+                sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
+
+                transfer = sizeSubstance
+                self.Capacity -= transfer
+
+                sendToSecador = f"set_capacity {transfer*0.03}"
+                sendToLavagem = f"set_capacity {transfer * 0.96}"
+                sendToGlicerine = f"set_capacity {transfer * 0.01}"
+
+                toSecadorSocket.send(sendToSecador.encode("utf-8"))
+                toLavagemSocket.send(sendToLavagem.encode("utf-8"))
+                toGlicerinaSocket.send(sendToGlicerine.encode("utf-8"))
+
+                self.sleeping = True
+                time.sleep(self.timeToSleep)
+
+
+
+    def verify(self):
+        timeout = 30
+        with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+            s.bind((self.host, self.port))
+            s.listen(5)
+            conn, addr = s.accept()
+            while True:
+                ready_sockets, _, _ = select.select(
+                    [conn], [], [], timeout
+                )
+                if ready_sockets:
+                    receivedMessage = conn.recv(1024).decode("utf-8")
+                    receivedMessage = receivedMessage.split()
+                    if receivedMessage[0] == "get_restante":
+                        restante = str(self.getRestante())
+                        conn.send(restante.encode("utf-8"))
+                    elif receivedMessage[0] == "set_capacity":
+                        self.setCapacity(float(receivedMessage[1]))

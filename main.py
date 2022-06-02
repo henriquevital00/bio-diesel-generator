@@ -1,14 +1,18 @@
 from Models.BioDiesel import BioDiesel
 from Models.Reactor import Reactor
+from Models.OilTank import OilTank
 import threading
 
 def runMachines():
-    bio = BioDiesel()
+    oilTank = OilTank()
     reactor = Reactor()
-    bioDieselThread = threading.Thread(target=bio.verify)
+    
+
+    oilTankThread = threading.Thread(target=oilTank.verify)
+    threading.Timer(10, OilTank.setCapacity).start()
     decantadorThread = threading.Thread(target=reactor.verify)
     decantadorThread.start()
-    bioDieselThread.start()
+    oilTankThread.start()
     #dryerThread = threading.Thread(target=, args=(1,))
     #dryerToEtOhThread = threading.Thread(target=, args=(1,))
     #etOhThread = threading.Thread(target=, args=(1,))

@@ -18,6 +18,7 @@ class Reactor(IMachines):
         self.host = ""
         self.portToDecantador = 65433
         self.port = 65441
+        self.ciclo = 0
 
     def getRestante(self) -> int:
         return self.Volume - self.Capacity
@@ -60,6 +61,7 @@ class Reactor(IMachines):
                     if float(data) > 0:
                         transfer = self.calculateTransfer(float(data))
                         if transfer > 0:
+                            self.ciclo += 1
                             sendString = f"set_capacity {transfer}"
                             s.send(sendString.encode("utf-8"))
                 time.sleep(1)

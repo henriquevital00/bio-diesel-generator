@@ -17,6 +17,7 @@ class Decantador(IMachines):
         self.portToGlicerine = 65437
         self.portToLavagem = 65438
         self.portToSecadorToEtoh = 65435
+        self.ciclo = 0
 
     def setCapacity(self, quantity):
         self.Capacity += quantity
@@ -44,7 +45,8 @@ class Decantador(IMachines):
                 self.Capacity -= transfer
 
                 if transfer > 0:
-                    #print(f"Valores transferidos -> Secador: {transfer*0.03} Lavagem: {transfer * 0.96} Glicerina: {transfer * 0.01}")
+                    self.ciclo += 1
+
                     sendToSecador = f"set_capacity {transfer*0.03}"
                     sendToLavagem = f"set_capacity {transfer * 0.96}"
                     sendToGlicerine = f"set_capacity {transfer * 0.01}"

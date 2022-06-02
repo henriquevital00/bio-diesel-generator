@@ -17,14 +17,15 @@ class Dashboard:
                     "Capacidade": oilTankObj.Capacity
                 },
                 "Reator": {
-                    "Capacidade": reactorObj.Capacity
+                    "Capacidade": reactorObj.Capacity,
+                    "Ciclo": reactorObj.ciclo
                 },
                 "Tanque_residual_oleo": {
                     "Capacidade" : oilResidualTankObj.Capacity
                 },
                 "Decantador": {
                     "Capacidade": decantadorObj.Capacity,
-                    "Ciclo" : 0
+                    "Ciclo" : decantadorObj.ciclo
                 },
                 "Glicerina": {
                     "Capacidade": glicerineObj.Capacity

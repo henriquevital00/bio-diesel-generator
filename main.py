@@ -9,6 +9,7 @@ from Models.BioDiesel import BioDiesel
 from Models.DryerToEtOh import DryerToEtOh
 from Models.Etoh import Etoh
 from Models.Naoh import Naoh
+from Dashboard.Dashboard import Dashboard
 
 import threading
 
@@ -24,6 +25,7 @@ def runMachines():
     dryerToEtoh = DryerToEtOh()
     etoh = Etoh()
     naoh = Naoh()
+    dashboard = Dashboard(oilResidualTank, oilTank, reactor, decantador, glicerine, lavagem, dryer, bioDiesel, dryerToEtoh, etoh, naoh)
 
 
     # Nao tem transfereLoop, este só transfere pelo verify
@@ -60,11 +62,17 @@ def runMachines():
     naohThreadVerify = threading.Thread(target=naoh.verify)
     naohThreadTransfer = threading.Thread(target=naoh.transfereLoop)
 
+    # Dashboard para mostrar os dados
+    dashboardThread = threading.Thread(target=dashboard.show)
+
+
+
+
     threadsList = [oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify, glicerineThreadVerify,
                    lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
                    etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
                    decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
-                   etohThreadTransfer, naohThreadTransfer]
+                   etohThreadTransfer, naohThreadTransfer, dashboardThread]
 
 
     for item in range(len(threadsList)):

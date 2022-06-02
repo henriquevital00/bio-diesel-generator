@@ -12,7 +12,7 @@ class Dryer(IMachines):
         super().__init__()
         self.Capacity = 0
         self.Waste = 0.95
-        self.Flow = 0.2
+        self.Flow = 1
         self.host = ""
         self.port = 65434
         self.portToBioDiesel = 65432
@@ -30,9 +30,10 @@ class Dryer(IMachines):
                     transfer = sizeSubstance * self.Waste
                     self.Capacity -= transfer
                     if transfer > 0:
-                        sendToEtohTransferString = f"set_capacity {transfer}"
+                        #print(f"Transferindo Secador: {transfer:.{3}f}   Perda: {self.lost}")
+                        sendToEtohTransferString = f"set_capacity {transfer:.{3}f}"
                         s.send(sendToEtohTransferString.encode("utf-8"))
-                time.sleep(5)
+                        time.sleep(5)
 
     def verify(self):
         timeout = 30

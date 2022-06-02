@@ -21,6 +21,7 @@ class Glicerine(IMachines):
                     [conn], [], [], timeout
                 )
                 if ready_sockets:
+                    #print(f"Capacidade glicerina: {self.Capacity}")
                     receivedMessage = conn.recv(1024).decode("utf-8")
                     receivedMessage = receivedMessage.split()
                     if receivedMessage[0] == "set_capacity":

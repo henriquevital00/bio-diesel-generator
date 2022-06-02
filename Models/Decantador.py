@@ -44,6 +44,7 @@ class Decantador(IMachines):
                 self.Capacity -= transfer
 
                 if transfer > 0:
+                    #print(f"Valores transferidos -> Secador: {transfer*0.03} Lavagem: {transfer * 0.96} Glicerina: {transfer * 0.01}")
                     sendToSecador = f"set_capacity {transfer*0.03}"
                     sendToLavagem = f"set_capacity {transfer * 0.96}"
                     sendToGlicerine = f"set_capacity {transfer * 0.01}"

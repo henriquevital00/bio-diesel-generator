@@ -26,8 +26,10 @@ class Lavagem(IMachines):
                     self.lost = sizeSubstance - (sizeSubstance * self.Waste)
                     transfer = sizeSubstance * self.Waste
                     self.Capacity -= transfer
+
                     if transfer > 0:
-                        sendToSecadorTransferString = f"set_capacity {transfer}"
+                        #print(f"Transferindo Lavagem: {transfer:.{3}f}   Perda: {self.lost}")
+                        sendToSecadorTransferString = f"set_capacity {transfer:.{3}f}"
                         s.send(sendToSecadorTransferString.encode("utf-8"))
                 time.sleep(1)
 

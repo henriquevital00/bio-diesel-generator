@@ -74,6 +74,7 @@ class Reactor(IMachines):
                 receivedMessage = receivedMessage.split()
                 if receivedMessage[0] == "get_restante":
                     restante = str(self.getRestante())
+                    print(f"\nRetornando valor: {restante}\n")
                     clientsocket.send(restante.encode("utf-8"))
                 elif receivedMessage[0] == "set_oil":
                     self.setCapacityOil(float(receivedMessage[1]))
@@ -81,6 +82,15 @@ class Reactor(IMachines):
                     self.setCapacityEtoh(float(receivedMessage[1]))
                 elif receivedMessage[0] == "set_naoh":
                     self.setCapacityNaoh(float(receivedMessage[1]))
+                elif receivedMessage[0] == "get_oil":
+                    sendCapacidadeOil = f"{self.oil}"
+                    clientsocket.send(sendCapacidadeOil.encode("utf-8"))
+                elif receivedMessage[0] == "get_etoh":
+                    sendCapacidadeEtoh = f"{self.etOh}"
+                    clientsocket.send(sendCapacidadeEtoh.encode("utf-8"))
+                elif receivedMessage[0] == "get_naoh":
+                    sendCapacidadeNaoh = f"{self.naOh}"
+                    clientsocket.send(sendCapacidadeNaoh.encode("utf-8"))
 
         clientsocket.close()
 

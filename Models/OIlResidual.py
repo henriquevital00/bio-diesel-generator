@@ -16,9 +16,19 @@ class OilResidual(IMachines):
             self.Capacity += random.uniform(1, 2)
             time.sleep(10)
 
+    def testConnection(self, s):
+        success = False
+        while not success:
+            try:
+                s.connect((self.host, self.portToOilTank))
+                success = True
+            except:
+                success = False
+
     def verify(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            s.connect((self.host, self.portToOilTank))
+            #s.connect((self.host, self.portToOilTank))
+            self.testConnection(s)
 
             while True:
                 transferQuantity = self.calculateTransfer()

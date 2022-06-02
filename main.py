@@ -10,6 +10,7 @@ from Models.DryerToEtOh import DryerToEtOh
 from Models.Etoh import Etoh
 from Models.Naoh import Naoh
 from Dashboard.Dashboard import Dashboard
+import time
 
 import threading
 
@@ -71,15 +72,24 @@ def runMachines():
 
 
 
-    threadsList = [oilResidualTankThreadVerify, oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify, glicerineThreadVerify,
+    #threadsList = [oilResidualTankThreadVerify, oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify, glicerineThreadVerify,
+    #               lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
+    #               etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
+    #               decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
+    #               etohThreadTransfer, naohThreadTransfer, dashboardThread, oilResidualTankThreadSetCapacity, etohThreadSetCapacity, naohThreadSetCapacity]
+
+    threadsList = [oilResidualTankThreadVerify, oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify,
+                   glicerineThreadVerify,
                    lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
                    etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
                    decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
-                   etohThreadTransfer, naohThreadTransfer, dashboardThread, oilResidualTankThreadSetCapacity, etohThreadSetCapacity, naohThreadSetCapacity]
+                   etohThreadTransfer, naohThreadTransfer, dashboardThread, etohThreadSetCapacity, naohThreadSetCapacity]
 
 
     for item in range(len(threadsList)):
         threadsList[item].start()
+    time.sleep(8)
+    oilResidualTankThreadSetCapacity.start()
 
 if __name__ == '__main__':
     runMachines()

@@ -9,7 +9,6 @@ class OilTank(IMachines):
 
     def __init__(self):
         super().__init__()
-        self.Capacity = 0
         self.Flow = 0.75
         self.host = ""
         self.port = 65440
@@ -19,14 +18,19 @@ class OilTank(IMachines):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToReactor))
             while True:
+                #print(f"Capcidade do while: {self.Capacity}")
                 if self.Capacity > 0:
-                    s.send(b"get_restante")
+                    s.send(b"get_oil")
                     data = s.recv(1024).decode("utf-8")
-                    transfer = self.calculateTransfer(float(data))
-                    if transfer > 0:
-                        sendString = f"set_oil {transfer}"
-                        s.send(sendString.encode("utf-8"))
-                    time.sleep(1)
+                 #   print(f"Capacidade: {data}")
+                    if float(data) < 2.5:
+                        transfer = self.calculateTransfer(float(data))
+                  #      print(f"Valor a ser transferido: {transfer}")
+                        if transfer > 0:
+                            sendString = f"set_oil {transfer}"
+                            s.send(sendString.encode("utf-8"))
+                   #         print("ENVIOU")
+                time.sleep(1)
 
 
     def responde(self, clientsocket, addr):
@@ -39,8 +43,8 @@ class OilTank(IMachines):
                 receivedMessage = clientsocket.recv(1024).decode("utf-8")
                 receivedMessage = receivedMessage.split()
                 if receivedMessage[0] == "set_capacity":
-                    print(F"TESTANDO: {self.Capacity}")
                     self.setCapacity(float(receivedMessage[1]))
+                    print(f"Capacidade Recebida tanque de oleo: {self.Capacity}")
 
         clientsocket.close()
 
@@ -48,7 +52,7 @@ class OilTank(IMachines):
 
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.bind((self.host, self.port))
+            s.listen()
             while True:
-                s.listen()
                 conn, addr = s.accept()
                 threading.Thread(target=self.responde, args=(conn, addr)).start()

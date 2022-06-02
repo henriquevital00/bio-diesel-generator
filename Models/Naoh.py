@@ -7,7 +7,7 @@ class Naoh(IMachines):
     def __init__(self):
         super().__init__()
         self.Capacity = 0
-        self.Flow = 0.5
+        self.Flow = 1
         self.host = ""
         self.port = 65439
         self.portToReator = 65441
@@ -23,12 +23,14 @@ class Naoh(IMachines):
 
             while True:
                 if self.Capacity > 0:
-                    s.send(b"get_restante")
+                    #Verifica sua substancia e nao envia se passar a proporcao de 1.25L
+                    s.send(b"get_naoh")
                     data = s.recv(1024).decode("utf-8")
-                    transfer = self.calculateTransfer(float(data))
-                    if transfer > 0:
-                        sendString = f"set_naoh {transfer}"
-                        s.send(sendString.encode("utf-8"))
+                    if float(data) < 1.25:
+                        transfer = self.calculateTransfer(float(data))
+                        if transfer > 0:
+                            sendString = f"set_naoh {transfer}"
+                            s.send(sendString.encode("utf-8"))
                 time.sleep(1)
 
     def verify(self):

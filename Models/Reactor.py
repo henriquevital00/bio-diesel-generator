@@ -16,7 +16,7 @@ class Reactor(IMachines):
         self.etOh = 0
         self.oil = 0
         self.host = ""
-        self.portToDecantador = 65440
+        self.portToDecantador = 65433
         self.port = 65441
 
     def getRestante(self) -> int:
@@ -57,11 +57,12 @@ class Reactor(IMachines):
                 if self.Capacity > 0:
                     s.send(b"get_restante")
                     data = s.recv(1024).decode("utf-8")
-                    transfer = self.calculateTransfer(float(data))
-                    if transfer > 0:
-                        sendString = f"set_capacity {transfer}"
-                        s.send(sendString.encode("utf-8"))
-                    time.sleep(1)
+                    if float(data) > 0:
+                        transfer = self.calculateTransfer(float(data))
+                        if transfer > 0:
+                            sendString = f"set_capacity {transfer}"
+                            s.send(sendString.encode("utf-8"))
+                time.sleep(1)
 
     def responde(self, clientsocket, addr):
         timeout = 30
@@ -72,10 +73,8 @@ class Reactor(IMachines):
             if ready_sockets:
                 receivedMessage = clientsocket.recv(1024).decode("utf-8")
                 receivedMessage = receivedMessage.split()
-                #print(f"Capacidade do reator: {self.Capacity} Oleo: {self.oil} ETOH: {self.etOh} NAoh: {self.naOh}")
                 if receivedMessage[0] == "get_restante":
                     restante = str(self.getRestante())
-                    print(f"\nRetornando valor: {restante}\n")
                     clientsocket.send(restante.encode("utf-8"))
                 elif receivedMessage[0] == "set_oil":
                     self.setCapacityOil(float(receivedMessage[1]))

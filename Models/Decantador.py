@@ -34,25 +34,26 @@ class Decantador(IMachines):
         toGlicerinaSocket.connect((self.host, self.portToGlicerine))
 
         while True:
+            self.sleeping = False
             if self.Capacity > 0:
                 transfer = 0
-                self.sleeping = False
 
                 sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
 
                 transfer = sizeSubstance
                 self.Capacity -= transfer
 
-                sendToSecador = f"set_capacity {transfer*0.03}"
-                sendToLavagem = f"set_capacity {transfer * 0.96}"
-                sendToGlicerine = f"set_capacity {transfer * 0.01}"
+                if transfer > 0:
+                    sendToSecador = f"set_capacity {transfer*0.03}"
+                    sendToLavagem = f"set_capacity {transfer * 0.96}"
+                    sendToGlicerine = f"set_capacity {transfer * 0.01}"
 
-                toSecadorSocket.send(sendToSecador.encode("utf-8"))
-                toLavagemSocket.send(sendToLavagem.encode("utf-8"))
-                toGlicerinaSocket.send(sendToGlicerine.encode("utf-8"))
+                    toSecadorSocket.send(sendToSecador.encode("utf-8"))
+                    toLavagemSocket.send(sendToLavagem.encode("utf-8"))
+                    toGlicerinaSocket.send(sendToGlicerine.encode("utf-8"))
 
-                self.sleeping = True
-                time.sleep(self.timeToSleep)
+                    self.sleeping = True
+                    time.sleep(self.timeToSleep)
 
 
 

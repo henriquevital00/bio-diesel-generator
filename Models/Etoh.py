@@ -50,4 +50,3 @@ class Etoh(IMachines):
                     receivedMessage = receivedMessage.split()
                     if receivedMessage[0] == "set_capacity":
                         self.setCapacity(float(receivedMessage[1]))
-                        #print(f"Capacidade EToh: {self.Capacity}")

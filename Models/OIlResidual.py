@@ -27,7 +27,6 @@ class OilResidual(IMachines):
 
     def verify(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-            #s.connect((self.host, self.portToOilTank))
             self.testConnection(s)
 
             while True:

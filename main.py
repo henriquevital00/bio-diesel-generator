@@ -68,15 +68,6 @@ def runMachines():
     # Dashboard para mostrar os dados
     dashboardThread = threading.Thread(target=Dashboard.show, args=(oilResidualTank, oilTank, reactor, decantador, glicerine, lavagem, dryer, bioDiesel, dryerToEtoh, etoh, naoh))
 
-
-
-
-    #threadsList = [oilResidualTankThreadVerify, oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify, glicerineThreadVerify,
-    #               lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
-    #               etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
-    #               decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
-    #               etohThreadTransfer, naohThreadTransfer, dashboardThread, oilResidualTankThreadSetCapacity, etohThreadSetCapacity, naohThreadSetCapacity]
-
     threadsList = [oilResidualTankThreadVerify, oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify,
                    glicerineThreadVerify,
                    lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
@@ -88,8 +79,6 @@ def runMachines():
 
     for item in range(len(threadsList)):
         threadsList[item].start()
-    #time.sleep(8)
-    #oilResidualTankThreadSetCapacity.start()
 
 if __name__ == '__main__':
     runMachines()

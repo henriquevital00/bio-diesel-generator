@@ -5,19 +5,6 @@ import os
 
 class Dashboard:
 
-    #def __int__ (self, oilResidualTankObj, oilTankObj, reactorObj, decantadorObj, glicerineObj, lavagemObj, dryerObj, bioDieselObj, dryerToEtohObj, etohObj, naohObj):
-        #self.oilResidualTank = oilResidualTankObj
-        #self.oilTank = oilTankObj
-        #self.reactor = reactorObj
-        #self.decantador = decantadorObj
-        #self.glicerine = glicerineObj
-        #self.lavagem = lavagemObj
-        #self.dryer = dryerObj
-        #self.bioDiesel = bioDieselObj
-        #self.dryerToEtoh = dryerToEtohObj
-        #self.etoh = etohObj
-        #self.naoh = naohObj
-
     @staticmethod
     def clear():
         clear = lambda: os.system('clear')

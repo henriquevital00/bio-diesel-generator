@@ -21,15 +21,12 @@ class OilTank(IMachines):
                 if self.Capacity > 0:
                     s.send(b"get_oil")
                     data = s.recv(1024).decode("utf-8")
-                    #print(f"Capacidade tanque reator: {data}")
                     if float(data) < 2.5:
                         sobra = 2.5 - float(data)
                         transfer = self.calculateTransfer(sobra)
-                        #print(f"\nValor a ser transferido: {transfer}")
                         if transfer > 0:
                             sendString = f"set_oil {transfer}"
                             s.send(sendString.encode("utf-8"))
-                   #         print("ENVIOU")
                 time.sleep(1)
 
 

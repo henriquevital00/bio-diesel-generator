@@ -15,7 +15,7 @@ class Lavagem(IMachines):
         self.portToDryer = 65434
 
     # chamar a cada 3 segundos, pois existem 3 tanques com vazao de 1.5 l/s
-    def trasferLoop(self):
+    def transfereLoop(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToDryer))
             while True:

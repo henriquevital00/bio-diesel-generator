@@ -18,7 +18,7 @@ class Dryer(IMachines):
         self.portToBioDiesel = 65432
         self.lost = 0
 
-    def trasferLoop(self):
+    def transfereLoop(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToBioDiesel))
             while True:

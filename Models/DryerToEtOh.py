@@ -13,7 +13,7 @@ class DryerToEtOh(IMachines):
         self.port = 65435
         self.portToEtoh = 65436
 
-    def trasferLoop(self):
+    def transfereLoop(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToEtoh))
             while True:

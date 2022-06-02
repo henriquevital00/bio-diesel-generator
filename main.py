@@ -1,27 +1,74 @@
-from Models.BioDiesel import BioDiesel
-from Models.Reactor import Reactor
+from Models.OIlResidual import OilResidual
 from Models.OilTank import OilTank
+from Models.Reactor import Reactor
+from Models.Decantador import Decantador
+from Models.Glicerine import Glicerine
+from Models.Lavagem import Lavagem
+from Models.Dryer import Dryer
+from Models.BioDiesel import BioDiesel
+from Models.DryerToEtOh import DryerToEtOh
+from Models.Etoh import Etoh
+from Models.Naoh import Naoh
+
 import threading
 
 def runMachines():
+    oilResidualTank = OilResidual()
     oilTank = OilTank()
     reactor = Reactor()
-    
+    decantador = Decantador()
+    glicerine = Glicerine()
+    lavagem = Lavagem()
+    dryer = Dryer()
+    bioDiesel = BioDiesel()
+    dryerToEtoh = DryerToEtOh()
+    etoh = Etoh()
+    naoh = Naoh()
 
-    oilTankThread = threading.Thread(target=oilTank.verify)
-    threading.Timer(10, OilTank.setCapacity).start()
-    decantadorThread = threading.Thread(target=reactor.verify)
-    decantadorThread.start()
-    oilTankThread.start()
-    #dryerThread = threading.Thread(target=, args=(1,))
-    #dryerToEtOhThread = threading.Thread(target=, args=(1,))
-    #etOhThread = threading.Thread(target=, args=(1,))
-    #glicerineThread = threading.Thread(target=, args=(1,))
-    #lavagemThread = threading.Thread(target=, args=(1,))
-    #naOhThread = threading.Thread(target=, args=(1,))
-    #oilTankThread = threading.Thread(target=, args=(1,))
-    #reactorThread = threading.Thread(target=, args=(1,))
 
+    # Nao tem transfereLoop, este só transfere pelo verify
+    oilResidualTankThreadVerify = threading.Thread(target=oilResidualTank.verify)
+
+
+    oilTankThreadVerify = threading.Thread(target=oilTank.verify)
+    oilTankThreadTransfer = threading.Thread(target=oilTank.transfereLoop)
+
+    reactorTankThreadVerify = threading.Thread(target=reactor.verify)
+    reactorTankThreadTransfer = threading.Thread(target=reactor.transfereLoop)
+
+    decantadorThreadVerify = threading.Thread(target=decantador.verify)
+    decantadorThreadTransfer = threading.Thread(target=decantador.transfereLoop)
+
+    # Este nao transfere, pois e tanque final
+    glicerineThreadVerify = threading.Thread(target=glicerine.verify)
+
+    lavagemThreadVerify = threading.Thread(target=lavagem.verify)
+    lavagemThreadTransfer = threading.Thread(target=lavagem.transfereLoop)
+
+    dryerThreadVerify = threading.Thread(target=dryer.verify)
+    dryerThreadTransfer = threading.Thread(target=dryer.transfereLoop)
+
+    # Este tanque nao transfere, pois e tanque final
+    bioDieselThreadVerify = threading.Thread(target=bioDiesel.verify)
+
+    dryerToEtohThreadVerify = threading.Thread(target=dryerToEtoh.verify)
+    dryerToEtohThreadTransfer = threading.Thread(target=dryerToEtoh.transfereLoop)
+
+    etohThreadVerify = threading.Thread(target=etoh.verify)
+    etohThreadTransfer = threading.Thread(target=etoh.transfereLoop)
+
+    naohThreadVerify = threading.Thread(target=naoh.verify)
+    naohThreadTransfer = threading.Thread(target=naoh.transfereLoop)
+
+    threadsList = [oilTankThreadVerify, reactorTankThreadVerify, decantadorThreadVerify, glicerineThreadVerify,
+                   lavagemThreadVerify, dryerThreadVerify, bioDieselThreadVerify, dryerToEtohThreadVerify,
+                   etohThreadVerify, naohThreadVerify, oilTankThreadTransfer, reactorTankThreadTransfer,
+                   decantadorThreadTransfer, lavagemThreadTransfer, dryerToEtohThreadTransfer, dryerThreadTransfer,
+                   etohThreadTransfer, naohThreadTransfer]
+
+
+    for item in range(len(threadsList)):
+        threadsList[item].start()
 
 if __name__ == '__main__':
     runMachines()

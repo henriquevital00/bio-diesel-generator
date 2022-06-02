@@ -25,7 +25,7 @@ class Decantador(IMachines):
         return self.Volume - self.Capacity
 
     # Separar o transfer em 1% glicerina 96% solucao e 3% EtOh para mostrar no terminal
-    def trasfer(self):
+    def transfereLoop(self):
         toLavagemSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toSecadorSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         toGlicerinaSocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

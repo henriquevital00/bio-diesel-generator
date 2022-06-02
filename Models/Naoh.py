@@ -16,7 +16,7 @@ class Naoh(IMachines):
         self.Capacity += 0.5
         time.sleep(1)
 
-    def transferLoop(self):
+    def transfereLoop(self):
         with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
             s.connect((self.host, self.portToReator))
 

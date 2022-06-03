@@ -1,6 +1,6 @@
 {
     "Biodiesel": {
-        "Capacidade": 680.1710000000038
+        "Capacidade": 680.1850000000038
     },
     "Decantador": {
         "Capacidade": 10.0,
@@ -8,33 +8,33 @@
         "sleep": true
     },
     "EtOh": {
-        "Capacidade": 736.4784210526191
+        "Capacidade": 738.0084210526188
     },
     "Glicerina": {
         "Capacidade": 7.169999999999892
     },
     "Lavagem": {
-        "Capacidade": 0.00513557973374007,
-        "Perda": 18.56578470763922,
-        "emulsao": 688.3148644202681
+        "Capacidade": 0.07059277587566637,
+        "Perda": 18.564019143252455,
+        "emulsao": 688.2494072241259
     },
     "NaOh": {
-        "Capacidade": 1613.5
+        "Capacidade": 1615.5
     },
     "Reator": {
-        "Capacidade": 4.999999999999998,
-        "Ciclo": 705
+        "Capacidade": 5.0,
+        "Ciclo": 713
     },
     "Secador": {
-        "Capacidade": 8.143286249999875,
-        "Perda": 35.798511250000104
+        "Capacidade": 8.064273750000115,
+        "Perda": 35.7992487500001
     },
     "SecadordeEtoh": {
-        "Capacidade": 0.031578947368421054,
-        "Perda": 1.1304432132963962
+        "Capacidade": 0.0015789473684210548,
+        "Perda": 1.132022160664816
     },
     "Tanque_de_oleo": {
-        "Capacidade": 175.75232668340067
+        "Capacidade": 179.14233601660078
     },
     "Tanque_residual_oleo": {
         "Capacidade": 0.0

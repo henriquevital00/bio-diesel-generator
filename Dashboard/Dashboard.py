@@ -11,6 +11,7 @@ class Dashboard:
 
     @staticmethod
     def show(oilResidualTankObj, oilTankObj, reactorObj, decantadorObj, glicerineObj, lavagemObj, dryerObj, bioDieselObj, dryerToEtohObj, etohObj, naohObj):
+        tempo = 0
         while True:
             data = {
                 "Tanque_de_oleo": {
@@ -25,14 +26,16 @@ class Dashboard:
                 },
                 "Decantador": {
                     "Capacidade": decantadorObj.Capacity,
-                    "Ciclo" : decantadorObj.ciclo
+                    "Ciclo" : decantadorObj.ciclo,
+                    "sleep": decantadorObj.sleeping
                 },
                 "Glicerina": {
                     "Capacidade": glicerineObj.Capacity
                 },
                 "Lavagem": {
                     "Capacidade": lavagemObj.Capacity,
-                    "Perda" : lavagemObj.lost
+                    "Perda" : lavagemObj.lost,
+                    "emulsao": lavagemObj.emulssao
                 },
                 "Secador": {
                     "Capacidade": dryerObj.Capacity,
@@ -54,4 +57,7 @@ class Dashboard:
             }
             Dashboard.clear()
             print(json.dumps(data, sort_keys=True, indent=4))
+            tempo += 1
             time.sleep(1)
+            if tempo == 3600:
+                break

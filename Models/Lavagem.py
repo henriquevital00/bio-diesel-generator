@@ -10,6 +10,7 @@ class Lavagem(IMachines):
         self.Flow = 1.5
         self.Waste = 0.975
         self.lost = 0
+        self.emulssao = 0
         self.host = ""
         self.port = 65438
         self.portToDryer = 65434
@@ -23,15 +24,16 @@ class Lavagem(IMachines):
                 if (self.Capacity > 0):
                     sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
 
-                    self.lost = sizeSubstance - (sizeSubstance * self.Waste)
-                    transfer = sizeSubstance * self.Waste
+                    self.lost += sizeSubstance - (sizeSubstance * self.Waste)
+                    transfer = ((sizeSubstance * self.Waste) * self.Waste) * self.Waste
                     self.Capacity -= transfer
 
                     if transfer > 0:
+                        self.emulssao += transfer
                         #print(f"Transferindo Lavagem: {transfer:.{3}f}   Perda: {self.lost}")
                         sendToSecadorTransferString = f"set_capacity {transfer:.{3}f}"
                         s.send(sendToSecadorTransferString.encode("utf-8"))
-                time.sleep(1)
+                time.sleep(3)
 
     def verify(self):
 

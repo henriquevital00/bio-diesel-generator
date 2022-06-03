@@ -26,7 +26,7 @@ class Dryer(IMachines):
                 if (self.Capacity > 0):
                     sizeSubstance = self.Capacity if self.Capacity <= self.Flow else self.Flow
 
-                    self.lost = sizeSubstance - (sizeSubstance * self.Waste)
+                    self.lost += sizeSubstance - (sizeSubstance * self.Waste)
                     transfer = sizeSubstance * self.Waste
                     self.Capacity -= transfer
                     if transfer > 0:

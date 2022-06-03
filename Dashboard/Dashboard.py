@@ -32,18 +32,18 @@ class Dashboard:
                 },
                 "Lavagem": {
                     "Capacidade": lavagemObj.Capacity,
-                    "Perda" : 0
+                    "Perda" : lavagemObj.lost
                 },
                 "Secador": {
                     "Capacidade": dryerObj.Capacity,
-                    "Perda" : 0
+                    "Perda" : dryerObj.lost
                 },
                 "Biodiesel": {
                     "Capacidade": bioDieselObj.Capacity
                 },
                 "SecadordeEtoh": {
                     "Capacidade": dryerToEtohObj.Capacity,
-                    "Perda" : 0
+                    "Perda" : dryerToEtohObj.lost
                 },
                 "EtOh": {
                     "Capacidade": etohObj.Capacity
